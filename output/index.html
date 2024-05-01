@@ -22,7 +22,7 @@
         {% if forloop.first %}
         <thead>
           <tr>
-            <th>Tweet</th>
+            <th>Created</th>
             <th>Classification</th>
             <th>Reasons</th>
             <th>Summary</th>
@@ -32,7 +32,7 @@
         {% endif %}
 
           <tr>
-            <td><a target="_blank" href="https://twitter.com/_/status/{{ row['tweet_id'] }}">{{ row['created_at'] }}</a></td>
+            <td><a target="_blank" href="https://twitter.com/_/status/{{ row['tweet_id'] }}">{{ row['created_at'] | date:"%Y-%m-%d" }}</a></td>
             <td>{{ row['classification'] }}</td>
             <td>{{ row['reasons'] }}</td>
             <td>{{ row['summary'] }}</td>
