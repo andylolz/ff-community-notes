@@ -1,11 +1,19 @@
-from io import StringIO
 import csv
 from datetime import datetime, date, timedelta
+from io import StringIO
+import re
 import requests
+
+
+url_re = re.compile(r"(https?://[^\s]+)")
 
 
 def to_isoformat(ms_since_epoch):
     return str(datetime.utcfromtimestamp(int(ms_since_epoch[:-3])))
+
+
+def urlize(inp):
+    return url_re.sub(r'<a target="_blank" href="\1">\1</a>', inp)
 
 
 reasons = {
@@ -69,7 +77,7 @@ with open("output/_data/notes.csv", "w") as fh:
             "note_author_id": row["noteAuthorParticipantId"],
             "classification": row["classification"].replace("_", " ").lower().capitalize(),
             "reasons": get_reasons(row),
-            "summary": row["summary"],
+            "summary": urlize(row["summary"]),
             "trustworthy_source": bool(row["trustworthySources"]),
             "created_at": to_isoformat(row["createdAtMillis"]),
         }
