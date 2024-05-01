@@ -36,7 +36,7 @@ def get_generator():
     return get_data(yesterday)
 
 
-with open("output/data.csv", "w") as fh:
+with open("output/_data/notes.csv", "w") as fh:
     writer = None
     for row in get_generator():
         if "fullfact" in row["summary"].lower():
