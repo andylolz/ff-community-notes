@@ -1,0 +1,28 @@
+name: Fetch
+
+on:
+  schedule:
+    - cron: "0 8 * * *"  # 8am
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+      - name: Install dependencies
+        run: pipx install requests
+      - name: Run script
+        run: python script.py
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: output
