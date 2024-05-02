@@ -21,6 +21,7 @@ def urlize(inp: str) -> str:
 def pp_key(key: str) -> str:
     return key.replace("_", " ").lower().capitalize()
 
+
 reasons_lookup = {
     "misleadingOther": "Other",
     "misleadingFactualError": "Factual error",
@@ -75,11 +76,7 @@ with open("output/_data/notes.csv", "w") as fh:
             continue
         all_note_ids.append(row["noteId"])
         classification = pp_key(row["classification"])
-        reasons = ", ".join([
-            v
-            for k, v in reasons_lookup.items()
-            if bool(int(row[k]))
-        ])
+        reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
         output = {
             "tweet_id": row["tweetId"],
             "note_id": row["noteId"],
