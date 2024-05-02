@@ -96,22 +96,23 @@ with open("output/_data/notes.csv", "w") as fh:
         _ = writer.writerow(output)
 
 
+helpful = "CURRENTLY_RATED_HELPFUL"
 started = False
 with open("output/_data/statuses.json", "w") as fh:
     fh.write("{")
     for row in get_data(latest_data_date, "noteStatusHistory"):
         if row["noteId"] not in all_note_ids:
             continue
-        if not row["firstNonNMRStatus"]:
+        if row["currentStatus"] != helpful and row["mostRecentNonNMRStatus"] != helpful:
             continue
         if started:
             fh.write(",")
         fh.write(f'"{row["noteId"]}":')
-        if row["currentStatus"] == "CURRENTLY_RATED_HELPFUL":
+        if row["currentStatus"] == helpful:
             output = {
                 "from": to_isoformat(row["timestampMillisOfCurrentStatus"]),
             }
-        elif row["mostRecentNonNMRStatus"] == "CURRENTLY_RATED_HELPFUL":
+        else:
             output = {
                 "from": to_isoformat(row["timestampMillisOfLatestNonNMRStatus"]),
                 "to": to_isoformat(row["timestampMillisOfCurrentStatus"]),
