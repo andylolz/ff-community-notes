@@ -40,8 +40,9 @@ title: Twitter community notes (where Full Fact is mentioned)
             <td>{{ row['reasons'] }}</td>
             <td>{{ row['summary'] }}</td>
             {% if site.data.statuses contains row['note_id'] %}
-            <td>{{ site.data.statuses[row['note_id']].from | date:"%Y-%m-%d" }}</td>
-            <td>{% if site.data.statuses[row['note_id']].to %}{{ site.data.statuses[row['note_id']].to | date:"%Y-%m-%d" }}{% endif %}</td>
+            {% assign status = site.data.statuses[row['note_id']] %}
+            <td>{{ status.from | date:"%Y-%m-%d" }}</td>
+            <td>{% if status.to %}{{ status.to | date:"%Y-%m-%d" }}{% endif %}</td>
             {% else %}
             <td></td><td></td>
             {% endif %}
