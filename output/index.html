@@ -1,4 +1,5 @@
 ---
+title: Twitter community notes (where Full Fact is mentioned)
 ---
 
 <!DOCTYPE html>
@@ -13,9 +14,9 @@
 <body class="py-4">
   <main>
     <div class="container">
-      <h1>Twitter community notes (where Full Fact is mentioned)</h1>
+      <h1>{{ page.title }}</h1>
 
-      <p class="lead">All proposed community notes that reference Full Fact, updated daily.</p>
+      <p class="lead">All <a href="https://twitter.com/i/communitynotes/download-data">proposed community notes</a> that reference <a href="https://fullfact.org/">Full Fact</a>, updated daily.</p>
 
       <table class="table table-striped" data-order='[[ 0, "desc" ]]'>
         {% for row in site.data.notes %}
