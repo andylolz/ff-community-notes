@@ -34,7 +34,7 @@ title: Twitter community notes (where Full Fact is mentioned)
         <tbody>
         {% endif %}
 
-          <tr>
+          <tr id="{{ row['note_id'] }}">
             <td><a target="_blank" href="https://twitter.com/_/status/{{ row['tweet_id'] }}">{{ row['created_at'] | date:"%Y-%m-%d" }}</a></td>
             <td>{{ row['classification'] }}</td>
             <td>{{ row['reasons'] }}</td>
