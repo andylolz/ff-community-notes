@@ -100,20 +100,21 @@ with open("output/_data/statuses.json", "w") as fh:
     for row in get_data(latest_data_date, "noteStatusHistory"):
         if row["noteId"] not in all_note_ids:
             continue
-        if row["currentStatus"] != helpful and row["mostRecentNonNMRStatus"] != helpful:
+        if row["firstNonNMRStatus"] != helpful and row["mostRecentNonNMRStatus"] != helpful:
             continue
         if started:
             fh.write(",")
         fh.write(f'"{row["noteId"]}":')
-        if row["currentStatus"] == helpful:
-            output = {
-                "from": to_isoformat(row["timestampMillisOfCurrentStatus"]),
-            }
+        if row["firstNonNMRStatus"] == helpful:
+            from_ts = to_isoformat(row["timestampMillisOfFirstNonNMRStatus"])
         else:
-            output = {
-                "from": to_isoformat(row["timestampMillisOfLatestNonNMRStatus"]),
-                "to": to_isoformat(row["timestampMillisOfCurrentStatus"]),
-            }
+            from_ts = to_isoformat(row["timestampMillisOfLatestNonNMRStatus"])
+        output = {
+            "from": from_ts,
+        }
+        if row["currentStatus"] != helpful:
+            # this timestamp doesn’t appear to be correct… Possibly it’s updated very frequently
+            output["to"] = to_isoformat(row["timestampMillisOfCurrentStatus"]),
         fh.write(json.dumps(output))
         started = True
     fh.write("}")

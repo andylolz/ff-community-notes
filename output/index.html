@@ -28,7 +28,7 @@ title: Twitter community notes (where Full Fact is mentioned)
             <th>Reasons</th>
             <th>Summary</th>
             <th>Shown from</th>
-            <th>Shown until</th>
+            <th>Disputed?</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +42,7 @@ title: Twitter community notes (where Full Fact is mentioned)
             {% if site.data.statuses contains row['note_id'] %}
             {% assign status = site.data.statuses[row['note_id']] %}
             <td>{{ status.from | date:"%Y-%m-%d" }}</td>
-            <td>{% if status.to %}{{ status.to | date:"%Y-%m-%d" }}{% endif %}</td>
+            <td>{% if status.to %}Disputed{% endif %}</td>
             {% else %}
             <td></td><td></td>
             {% endif %}
