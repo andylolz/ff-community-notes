@@ -19,7 +19,7 @@ def urlize(inp: str) -> str:
 
 
 def pp_key(key: str) -> str:
-    return key.replace("_", " ").lower().replace("currently rated ", "").capitalize()
+    return key.replace("_", " ").lower().capitalize()
 
 reasons_lookup = {
     "misleadingOther": "Other",
@@ -107,16 +107,14 @@ with open("output/_data/statuses.json", "w") as fh:
         if started:
             fh.write(",")
         fh.write(f'"{row["noteId"]}":')
-        if row["currentStatus"] != "NEEDS_MORE_RATINGS":
+        if row["currentStatus"] == "CURRENTLY_RATED_HELPFUL":
             output = {
-                "status": pp_key(row["currentStatus"]),
-                "at": to_isoformat(row["timestampMillisOfCurrentStatus"]),
+                "from": to_isoformat(row["timestampMillisOfCurrentStatus"]),
             }
-        else:
+        elif row["mostRecentNonNMRStatus"] == "CURRENTLY_RATED_HELPFUL":
             output = {
-                "status": pp_key(row["mostRecentNonNMRStatus"]),
-                "at": to_isoformat(row["timestampMillisOfLatestNonNMRStatus"]),
-                "but_not_since": to_isoformat(row["timestampMillisOfCurrentStatus"]),
+                "from": to_isoformat(row["timestampMillisOfLatestNonNMRStatus"]),
+                "to": to_isoformat(row["timestampMillisOfCurrentStatus"]),
             }
         fh.write(json.dumps(output))
         started = True

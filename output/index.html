@@ -27,7 +27,8 @@ title: Twitter community notes (where Full Fact is mentioned)
             <th>Classification</th>
             <th>Reasons</th>
             <th>Summary</th>
-            <th>Status</th>
+            <th>Shown from</th>
+            <th>Shown until</th>
           </tr>
         </thead>
         <tbody>
@@ -38,7 +39,12 @@ title: Twitter community notes (where Full Fact is mentioned)
             <td>{{ row['classification'] }}</td>
             <td>{{ row['reasons'] }}</td>
             <td>{{ row['summary'] }}</td>
-            <td>{% if site.data.statuses contains row['note_id'] %}{% if site.data.statuses[row['note_id']].but_not_since %}Pending (previously: {{ site.data.statuses[row['note_id']].status }}){% else %}{{ site.data.statuses[row['note_id']].status }}{% endif %}{% endif %}</td>
+            {% if site.data.statuses contains row['note_id'] %}
+            <td>{{ site.data.statuses[row['note_id']].from | date:"%Y-%m-%d" }}</td>
+            <td>{% if site.data.statuses[row['note_id']].to %}{{ site.data.statuses[row['note_id']].to | date:"%Y-%m-%d" }}{% endif %}</td>
+            {% else %}
+            <td></td><td></td>
+            {% endif %}
           </tr>
         {% endfor %}
         </tbody>
