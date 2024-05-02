@@ -161,3 +161,5 @@ cython_debug/
 
 # Jekyll
 _site/
+output/_data/*.csv
+output/_data/*.json
