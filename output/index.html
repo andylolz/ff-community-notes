@@ -17,7 +17,7 @@
 
       <p class="lead">All proposed community notes that reference Full Fact, updated daily.</p>
 
-      <table class="table table-striped">
+      <table class="table table-striped" data-order='[[ 0, "desc" ]]'>
         {% for row in site.data.notes %}
         {% if forloop.first %}
         <thead>
