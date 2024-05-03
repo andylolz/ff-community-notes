@@ -48,6 +48,7 @@ jobs:
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           EMAIL: ${{ secrets.EMAIL }}
+          PROXY: ${{ secrets.PROXY }}
           COOKIES: ${{ secrets.COOKIES }}
         continue-on-error: true
 

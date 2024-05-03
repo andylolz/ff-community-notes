@@ -10,18 +10,24 @@ async def fetch_tweets():
     with open("output/_data/notes.csv") as fh:
         all_tweet_ids = [row["tweet_id"] for row in csv.DictReader(fh)]
 
-    username = environ["USER"]
-    password = environ["PASS"]
-    email_address = environ["EMAIL"]
+    account_kwargs = {
+        "username": environ["USER"],
+        "password": environ["PASS"],
+        "email": environ["EMAIL"],
+        "email_password": "",
+    }
     cookies = environ.get("COOKIES")
     if cookies:
-        cookies = json.loads(cookies)
+        account_kwargs["cookies"] = json.loads(cookies)
+    proxy = environ.get("PROXY")
+    if proxy:
+        account_kwargs["proxy"] = proxy
 
     api = API()
-    await api.pool.add_account(username, password, email_address, "", cookies=cookies)
+    await api.pool.add_account(**account_kwargs)
     await api.pool.login_all()
 
-    account = await api.pool.get(username)
+    account = await api.pool.get(account_kwargs["username"])
     environ["COOKIES"] = json.dumps(account.cookies)
 
     for tweet_id in all_tweet_ids:
