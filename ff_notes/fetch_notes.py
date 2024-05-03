@@ -1,6 +1,6 @@
 import csv
 import re
-from helpers import to_isoformat, get_generator
+from .helpers import to_isoformat, get_generator
 
 
 url_re = re.compile(r"(https?://[^\s]+)")
@@ -40,7 +40,9 @@ if __name__ == "__main__":
                 continue
             all_note_ids.append(row["noteId"])
             classification = pp_key(row["classification"])
-            reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
+            reasons = ", ".join(
+                [v for k, v in reasons_lookup.items() if bool(int(row[k]))]
+            )
             output = {
                 "tweet_id": row["tweetId"],
                 "note_id": row["noteId"],

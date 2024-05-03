@@ -1,6 +1,6 @@
 import csv
 import json
-from helpers import get_generator, to_isoformat
+from .helpers import get_generator, to_isoformat
 
 
 if __name__ == "__main__":
@@ -14,7 +14,10 @@ if __name__ == "__main__":
         for row in get_generator("noteStatusHistory"):
             if row["noteId"] not in all_note_ids:
                 continue
-            if row["firstNonNMRStatus"] != helpful and row["mostRecentNonNMRStatus"] != helpful:
+            if (
+                row["firstNonNMRStatus"] != helpful
+                and row["mostRecentNonNMRStatus"] != helpful
+            ):
                 continue
             if started:
                 fh.write(",")
@@ -30,7 +33,7 @@ if __name__ == "__main__":
                 # this timestamp often doesn’t appear to be useful.
                 # I suspect because there are cases where the status is disputed,
                 # so the current status changes frequently
-                output["to"] = to_isoformat(row["timestampMillisOfCurrentStatus"]),
+                output["to"] = to_isoformat(row["timestampMillisOfCurrentStatus"])
             fh.write(json.dumps(output))
             started = True
         fh.write("}")
