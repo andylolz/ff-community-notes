@@ -4,7 +4,7 @@ on:
   push:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * *"  # 8am
+    - cron: "0 8 * * *"
 
 permissions:
   contents: write
@@ -15,16 +15,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: pip
+
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run script
-        run: |
-          python script.py
+
+      - name: Fetch notes
+        run: python ff_notes/fetch_notes.py
+
+      - name: Fetch statuses
+        run: python ff_notes/fetch_statuses.py
+
+      - name: Fetch tweets
+        run: python ff_notes/fetch_tweets.py
+        env:
+          TWS_RAISE_WHEN_NO_ACCOUNT: 1
+          USER: ${{ secrets.USER }}
+          PASS: ${{ secrets.PASS }}
+          EMAIL: ${{ secrets.EMAIL }}
+          COOKIES: ${{ secrets.COOKIES }}
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
