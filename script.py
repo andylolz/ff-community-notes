@@ -38,7 +38,7 @@ reasons_lookup = {
 }
 
 
-def get_data(date: date, fname: str = "notes") -> Generator:
+def get_data(date: date, fname: str) -> Generator:
     url_tmpl = f"https://ton.twimg.com/birdwatch-public-data/{{date}}/{fname}/{fname}-00000.tsv"
     url = url_tmpl.format(date=date.strftime("%Y/%m/%d"))
     r = requests.get(url, stream=True)
@@ -56,21 +56,20 @@ def get_data(date: date, fname: str = "notes") -> Generator:
     return _data_generator()
 
 
-def get_generator() -> Tuple[date, Generator]:
+def get_generator(fname: str = "notes") -> Generator:
     today = date.today()
     try:
-        return today, get_data(today)
+        return get_data(today, fname)
     except Exception:
         pass
     yesterday = today - timedelta(days=1)
-    return yesterday, get_data(yesterday)
+    return get_data(yesterday, fname)
 
 
 all_note_ids = []
 with open("output/_data/notes.csv", "w") as fh:
     writer = None
-    latest_data_date, generator = get_generator()
-    for row in generator:
+    for row in get_generator():
         if "fullfact" not in row["summary"].lower():
             # filter out non-fullfact stuff
             continue
@@ -97,7 +96,7 @@ helpful = "CURRENTLY_RATED_HELPFUL"
 started = False
 with open("output/_data/statuses.json", "w") as fh:
     fh.write("{")
-    for row in get_data(latest_data_date, "noteStatusHistory"):
+    for row in get_generator("noteStatusHistory"):
         if row["noteId"] not in all_note_ids:
             continue
         if row["firstNonNMRStatus"] != helpful and row["mostRecentNonNMRStatus"] != helpful:
@@ -113,7 +112,9 @@ with open("output/_data/statuses.json", "w") as fh:
             "from": from_ts,
         }
         if row["currentStatus"] != helpful:
-            # this timestamp doesn’t appear to be correct… Possibly it’s updated very frequently
+            # this timestamp often doesn’t appear to be useful.
+            # I suspect because there are cases where the status is disputed,
+            # so the current status changes frequently
             output["to"] = to_isoformat(row["timestampMillisOfCurrentStatus"]),
         fh.write(json.dumps(output))
         started = True
