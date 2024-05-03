@@ -25,6 +25,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Checkout output
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: output
+          fetch-depth: 0
+
+      - name: Move files into place
+        run: cp -r static/* output
+
       - name: Fetch notes
         run: python ff_notes/fetch_notes.py
 
