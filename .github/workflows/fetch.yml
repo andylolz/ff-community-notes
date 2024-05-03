@@ -41,16 +41,16 @@ jobs:
       - name: Fetch statuses
         run: python ff_notes/fetch_statuses.py
 
-      - name: Fetch tweets
-        run: python ff_notes/fetch_tweets.py
-        env:
-          TWS_RAISE_WHEN_NO_ACCOUNT: 1
-          USER: ${{ secrets.USER }}
-          PASS: ${{ secrets.PASS }}
-          EMAIL: ${{ secrets.EMAIL }}
-          PROXY: ${{ secrets.PROXY }}
-          COOKIES: ${{ secrets.COOKIES }}
-        continue-on-error: true
+      # - name: Fetch tweets
+      #   run: python ff_notes/fetch_tweets.py
+      #   env:
+      #     TWS_RAISE_WHEN_NO_ACCOUNT: 1
+      #     USER: ${{ secrets.USER }}
+      #     PASS: ${{ secrets.PASS }}
+      #     EMAIL: ${{ secrets.EMAIL }}
+      #     PROXY: ${{ secrets.PROXY }}
+      #     COOKIES: ${{ secrets.COOKIES }}
+      #   continue-on-error: true
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
