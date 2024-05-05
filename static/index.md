@@ -2,7 +2,7 @@
 title: Twitter community notes
 ---
 
-<p class="lead">Proposed <a href="https://twitter.com/i/communitynotes/download-data">Twitter community notes</a> from the last week, updated daily.</p>
+Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…](#how-it-works)_
 
 <table class="table table-striped" data-order='[[ 0, "desc" ]]'>
   {% for row in site.data.notes %}
@@ -37,3 +37,15 @@ title: Twitter community notes
   {% endfor %}
   </tbody>
 </table>
+
+---
+
+## How it works
+
+Community note data is fetched regularly from [https://twitter.com/i/communitynotes/download-data](https://twitter.com/i/communitynotes/download-data). This data is always a couple of days old.
+
+Notes are excluded if they meet any of the following criteria:
+
+* Created more than a week ago
+* Classifying the post as ‘not misleading’ (i.e. in support of the post)
+* Currently rated ‘unhelpful’
