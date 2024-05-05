@@ -13,7 +13,6 @@ title: Twitter community notes
       <th>Note shown</th>
       <th>Tweet</th>
       <th>Note</th>
-      <th>Classification</th>
       <th>Reasons</th>
     </tr>
   </thead>
@@ -30,7 +29,6 @@ title: Twitter community notes
       {% endif %}
       <td><blockquote class="twitter-tweet"><a href="https://twitter.com/_/status/{{ row['tweet_id'] }}"></a></blockquote></td>
       <td>{{ row['summary'] }}</td>
-      <td>{{ row['classification'] }}</td>
       <td>{{ row['reasons'] }}</td>
     </tr>
   {% endfor %}
