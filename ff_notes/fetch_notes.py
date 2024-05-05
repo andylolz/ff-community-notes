@@ -38,6 +38,7 @@ if __name__ == "__main__":
             if "fullfact" not in row["summary"].lower():
                 # filter out non-fullfact stuff
                 continue
+            created_at = to_isoformat(row["createdAtMillis"])
             all_note_ids.append(row["noteId"])
             classification = pp_key(row["classification"])
             reasons = ", ".join(
@@ -51,7 +52,7 @@ if __name__ == "__main__":
                 "reasons": reasons,
                 "summary": urlize(row["summary"]),
                 "trustworthy_source": bool(row["trustworthySources"]),
-                "created_at": to_isoformat(row["createdAtMillis"]),
+                "created_at": str(created_at),
             }
             if not writer:
                 writer = csv.DictWriter(fh, fieldnames=output.keys())

@@ -27,13 +27,13 @@ if __name__ == "__main__":
             else:
                 from_ts = to_isoformat(row["timestampMillisOfLatestNonNMRStatus"])
             output = {
-                "from": from_ts,
+                "from": str(from_ts),
             }
             if row["currentStatus"] != helpful:
                 # this timestamp often doesn’t appear to be useful.
                 # I suspect because there are cases where the status is disputed,
                 # so the current status changes frequently
-                output["to"] = to_isoformat(row["timestampMillisOfCurrentStatus"])
+                output["to"] = str(to_isoformat(row["timestampMillisOfCurrentStatus"]))
             fh.write(json.dumps(output))
             started = True
         fh.write("}")

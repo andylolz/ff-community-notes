@@ -5,8 +5,8 @@ import requests
 from typing import Generator
 
 
-def to_isoformat(ms_since_epoch: str) -> str:
-    return str(datetime.utcfromtimestamp(int(ms_since_epoch[:-3])))
+def to_isoformat(ms_since_epoch: str) -> datetime:
+    return datetime.utcfromtimestamp(int(ms_since_epoch[:-3]))
 
 
 def get_data(date: date, fname: str) -> Generator:
