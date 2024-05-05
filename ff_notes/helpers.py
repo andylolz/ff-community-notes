@@ -1,12 +1,12 @@
 import csv
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from io import StringIO
 import requests
 from typing import Generator
 
 
 def to_isoformat(ms_since_epoch: str) -> datetime:
-    return datetime.utcfromtimestamp(int(ms_since_epoch[:-3]))
+    return datetime.fromtimestamp(int(ms_since_epoch[:-3]), timezone.utc)
 
 
 def get_data(date: date, fname: str) -> Generator:

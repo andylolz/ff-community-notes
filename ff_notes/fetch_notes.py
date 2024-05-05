@@ -1,11 +1,11 @@
 import csv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import re
 from .helpers import to_isoformat, get_generator
 
 
 url_re = re.compile(r"(https?://[^\s]+)")
-one_week_ago = datetime.now() - timedelta(days=7)
+one_week_ago = datetime.now(timezone.utc) - timedelta(days=7)
 
 
 def urlize(inp: str) -> str:
