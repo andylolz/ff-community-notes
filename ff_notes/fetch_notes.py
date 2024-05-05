@@ -31,7 +31,6 @@ reasons_lookup = {
 
 
 if __name__ == "__main__":
-    all_note_ids = []
     with open("output/_data/notes.csv", "w") as fh:
         writer = None
         for row in get_generator():
@@ -39,7 +38,6 @@ if __name__ == "__main__":
                 # filter out non-fullfact stuff
                 continue
             created_at = to_isoformat(row["createdAtMillis"])
-            all_note_ids.append(row["noteId"])
             classification = pp_key(row["classification"])
             reasons = ", ".join(
                 [v for k, v in reasons_lookup.items() if bool(int(row[k]))]
