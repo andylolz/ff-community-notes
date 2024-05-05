@@ -24,7 +24,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       {% continue %}
     {% endif %}
     <tr id="{{ row['note_id'] }}">
-      <td><a target="_blank" href="https://twitter.com/_/status/{{ row['tweet_id'] }}">{{ row['created_at'] | date:"%Y-%m-%d" }}</a></td>
+      <td><a target="_blank" href="https://twitter.com/i/birdwatch/t/{{ row['tweet_id'] }}">{{ row['created_at'] | date:"%Y-%m-%d" }}</a></td>
       {% if status %}
       <td>{{ status.from | date:"%Y-%m-%d" }}{% if status.to %} (since removed){% endif %}</td>
       {% else %}
