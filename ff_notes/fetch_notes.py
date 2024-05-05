@@ -1,9 +1,11 @@
 import csv
+from datetime import datetime, timedelta
 import re
 from .helpers import to_isoformat, get_generator
 
 
 url_re = re.compile(r"(https?://[^\s]+)")
+one_week_ago = datetime.now() - timedelta(days=7)
 
 
 def urlize(inp: str) -> str:
@@ -34,10 +36,9 @@ if __name__ == "__main__":
     with open("output/_data/notes.csv", "w") as fh:
         writer = None
         for row in get_generator():
-            if "fullfact" not in row["summary"].lower():
-                # filter out non-fullfact stuff
-                continue
             created_at = to_isoformat(row["createdAtMillis"])
+            if created_at < one_week_ago:
+                continue
             classification = pp_key(row["classification"])
             reasons = ", ".join(
                 [v for k, v in reasons_lookup.items() if bool(int(row[k]))]

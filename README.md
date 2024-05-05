@@ -1,5 +1,5 @@
-# Twitter community notes (where Full Fact is mentioned)
+# Twitter community notes
 
-All [proposed community notes](https://twitter.com/i/communitynotes/download-data) that reference [Full Fact](https://fullfact.org/), updated daily.
+All proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated daily.
 
 https://andylolz.github.io/ff-community-notes/
