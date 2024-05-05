@@ -49,7 +49,6 @@ if __name__ == "__main__":
                 "classification": classification,
                 "reasons": reasons,
                 "summary": urlize(row["summary"]),
-                "trustworthy_source": bool(row["trustworthySources"]),
                 "created_at": str(created_at),
             }
             if not writer:
