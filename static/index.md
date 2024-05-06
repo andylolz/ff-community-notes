@@ -52,9 +52,6 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
   </table>
 </div>
 
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/luxon/2.3.1/luxon.min.js"></script>
-<script src="//cdn.datatables.net/v/bs5/jq-3.7.0/dt-2.0.5/datatables.min.js"></script>
 <script>
   let table = new DataTable('table', {
     columnDefs: [
