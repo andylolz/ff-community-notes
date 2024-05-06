@@ -12,10 +12,10 @@
     <header class="d-flex flex-wrap justify-content-end py-3 mb-4 border-bottom">
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="/">Home</a>
+          <a class="nav-link{% if page.url == '/' %} active{% endif %}" href="{{ '/' | relative_url }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link{% if page.url == '/about.html' %} active{% endif %}" href="/about/">About</a>
+          <a class="nav-link{% if page.url == '/about/' %} active{% endif %}" href="{{ '/about/' | relative_url }}">About</a>
         </li>
       </ul>
     </header>

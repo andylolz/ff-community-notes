@@ -2,7 +2,7 @@
 title: Twitter community notes
 ---
 
-Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…](/about/)_
+Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…]({{ '/about/' | relative_url }})_
 
 <div class="table-responsive">
   <table class="table table-striped" data-order='[[ 0, "desc" ]]'>
