@@ -2,9 +2,11 @@
 title: How it works
 ---
 
-Community note data is fetched regularly from [https://twitter.com/i/communitynotes/download-data](https://twitter.com/i/communitynotes/download-data).
+{% assign updated_at = site.data.notes | map: "created_at" | sort | last %}
 
-This data is always a couple of days old (**last updated: <span id="updatedAt">{{ site.data.notes | map: "created_at" | sort | last | date_to_rfc822 }}</span>**).
+Community note data is fetched regularly [from Twitter](https://twitter.com/i/communitynotes/download-data).
+
+This data is always a couple of days old (**last updated: <time id="updatedAt" datetime="{{ updated_at }}" title="{{ updated_at | date_to_rfc822 }}">{{ updated_at }}</time>**).
 
 Notes are excluded if they meet any of the following criteria:
 
@@ -14,6 +16,6 @@ Notes are excluded if they meet any of the following criteria:
 
 <script>
   const dt = document.getElementById('updatedAt');
-  const rel = luxon.DateTime.fromRFC2822(dt.textContent).toRelative();
+  const rel = luxon.DateTime.fromISO(dt.textContent).toRelative();
   dt.textContent = rel;
 </script>
