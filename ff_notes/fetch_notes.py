@@ -1,11 +1,11 @@
 import csv
 from datetime import datetime, timedelta, timezone
 import re
-from .helpers import to_datetime, get_generator
+from .helpers import to_isoformat, get_generator
 
 
 url_re = re.compile(r"(https?://[^\s]+)")
-one_week_ago = datetime.now(timezone.utc) - timedelta(days=7)
+one_week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).timestamp()
 
 
 def urlize(inp: str) -> str:
@@ -32,8 +32,8 @@ if __name__ == "__main__":
     with open("output/_data/notes.csv", "w") as fh:
         writer = None
         for row in get_generator():
-            created_at = to_datetime(row["createdAtMillis"])
-            if created_at < one_week_ago:
+            created_at = to_isoformat(row["createdAtMillis"])
+            if float(row["createdAtMillis"]) / 1000 < one_week_ago:
                 # exclude old notes
                 continue
             if row["classification"] == "NOT_MISLEADING":
@@ -48,7 +48,7 @@ if __name__ == "__main__":
                 "note_author_id": row["noteAuthorParticipantId"],
                 "reasons": reasons,
                 "summary": urlize(row["summary"]),
-                "created_at": created_at.isoformat(),
+                "created_at": created_at,
             }
             if not writer:
                 writer = csv.DictWriter(fh, fieldnames=output.keys())
