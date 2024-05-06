@@ -15,7 +15,7 @@ def get_data(date: date, fname: str) -> Generator:
     r = requests.get(url, stream=True)
     r.raise_for_status()
 
-    def _data_generator():
+    def _data_generator() -> Generator:
         headers = None
         for line in r.iter_lines():
             cols = next(csv.reader(StringIO(line.decode()), delimiter="\t"))
