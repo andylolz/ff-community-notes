@@ -5,7 +5,7 @@ import requests
 from typing import Generator
 
 
-def to_isoformat(ms_since_epoch: str) -> datetime:
+def to_datetime(ms_since_epoch: str) -> datetime:
     return datetime.fromtimestamp(int(ms_since_epoch[:-3]), timezone.utc)
 
 

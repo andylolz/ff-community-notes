@@ -1,6 +1,6 @@
 import csv
 import json
-from .helpers import get_generator, to_isoformat
+from .helpers import get_generator, to_datetime
 
 
 helpful = "CURRENTLY_RATED_HELPFUL"
@@ -28,17 +28,17 @@ if __name__ == "__main__":
             ):
                 continue
             if row["firstNonNMRStatus"] == helpful:
-                from_ts = to_isoformat(row["timestampMillisOfFirstNonNMRStatus"])
+                from_ts = to_datetime(row["timestampMillisOfFirstNonNMRStatus"])
             else:
-                from_ts = to_isoformat(row["timestampMillisOfLatestNonNMRStatus"])
-            note_status["from"] = str(from_ts)
+                from_ts = to_datetime(row["timestampMillisOfLatestNonNMRStatus"])
+            note_status["from"] = from_ts.isoformat()
             if row["currentStatus"] != helpful:
                 # this timestamp often doesn’t appear to be useful.
                 # I suspect because there are cases where the status
                 # is disputed, so the current status changes frequently
-                note_status["to"] = str(
-                    to_isoformat(row["timestampMillisOfCurrentStatus"])
-                )
+                note_status["to"] = to_datetime(
+                    row["timestampMillisOfCurrentStatus"]
+                ).isoformat()
         note_statuses[row["noteId"]] = note_status
 
 
