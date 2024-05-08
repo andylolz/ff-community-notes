@@ -23,7 +23,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 <script>
   let table = new DataTable('table', {
     ajax: {
-      url: '/data/notes.json',
+      url: '{{ '/data/notes.json' | relative_url }}',
       dataSrc: ''
     },
     columns: [
