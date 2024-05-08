@@ -34,13 +34,13 @@ jobs:
         run: cp -r static/* output
 
       - name: Fetch notes
-        run: python -m ff_notes.fetch_notes
+        run: python -m x_notes.fetch_notes
 
       - name: Fetch statuses
-        run: python -m ff_notes.fetch_statuses
+        run: python -m x_notes.fetch_statuses
 
       # - name: Fetch tweets
-      #   run: python -m ff_notes.fetch_tweets
+      #   run: python -m x_notes.fetch_tweets
       #   env:
       #     TWS_RAISE_WHEN_NO_ACCOUNT: 1
       #     USER: ${{ secrets.USER }}

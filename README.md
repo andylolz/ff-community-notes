@@ -33,10 +33,10 @@ Then to run:
 
 ```shell
 # Fetch notes
-python -m ff_notes.fetch_notes
+python -m x_notes.fetch_notes
 
 # Fetch note statuses
-python -m ff_notes.fetch_statuses
+python -m x_notes.fetch_statuses
 
 # Start the development server
 cd output
