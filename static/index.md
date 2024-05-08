@@ -27,43 +27,43 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       dataSrc: ''
     },
     columns: [
-        {
-          data: 'created_at', render: function (data, type, row, meta) {
-            if (type !== 'display') {
-              return data;
-            }
-            return '<a href="https://twitter.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
+      {
+        data: 'created_at', render: function (data, type, row, meta) {
+          if (type !== 'display') {
+            return data;
           }
-        },
-        {
-          data: 'shown', defaultContent: '', render: function (data, type, row, meta) {
-            if (data === undefined) {
-              return '';
-            }
-            if (type !== 'display') {
-              return data;
-            }
-            content = luxon.DateTime.fromISO(data).toFormat('d MMM yyyy')
-            if (row['removed']) {
-              content += ' (since removed)';
-            }
-            return content;
-          }
-        },
-        {
-          data: 'tweet_id', width: '550px', render: function (data, type, row, meta) {
-            if (type !== 'display') {
-              return data;
-            }
-            return '<blockquote class="twitter-tweet"><a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
-          }
-        },
-        {
-          data: 'summary',
-        },
-        {
-          data: 'reasons'
+          return '<a href="https://twitter.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
         }
+      },
+      {
+        data: 'shown', defaultContent: '', render: function (data, type, row, meta) {
+          if (data === undefined) {
+            return '';
+          }
+          if (type !== 'display') {
+            return data;
+          }
+          content = luxon.DateTime.fromISO(data).toFormat('d MMM yyyy')
+          if (row['removed']) {
+            content += ' (since removed)';
+          }
+          return content;
+        }
+      },
+      {
+        data: 'tweet_id', width: '550px', render: function (data, type, row, meta) {
+          if (type !== 'display') {
+            return data;
+          }
+          return '<blockquote class="twitter-tweet"><a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
+        }
+      },
+      {
+        data: 'summary',
+      },
+      {
+        data: 'reasons'
+      }
     ],
     drawCallback: function (settings) {
       twttr.widgets.load();
