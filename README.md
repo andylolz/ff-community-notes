@@ -2,7 +2,7 @@
 
 Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…](#how-it-works)_
 
-https://andylolz.github.io/ff-community-notes/
+https://andylolz.github.io/x-community-notes/
 
 ## How it works
 

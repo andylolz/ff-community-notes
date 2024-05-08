@@ -5,4 +5,4 @@ defaults:
     values:
       layout: "default"
 
-baseurl: "/ff-community-notes"
+baseurl: "/x-community-notes"
