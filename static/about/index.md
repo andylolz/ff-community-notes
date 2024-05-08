@@ -2,7 +2,12 @@
 title: How it works
 ---
 
+{% comment %}
+# this is actually the time the site was generated, but (in CI at least) we
+# scrape and then generate, so this is Good Enough
+{% endcomment %}
 {% assign scraped_at = 'now' %}
+
 {% assign updated_at = site.data.notes | map: "created_at" | sort | last %}
 
 Community note data is fetched regularly [from Twitter](https://twitter.com/i/communitynotes/download-data).
