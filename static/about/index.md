@@ -2,11 +2,12 @@
 title: How it works
 ---
 
+{% assign scraped_at = 'now' %}
 {% assign updated_at = site.data.notes | map: "created_at" | sort | last %}
 
 Community note data is fetched regularly [from Twitter](https://twitter.com/i/communitynotes/download-data).
 
-This data is always a couple of days old (**the most recent data is from <time id="updatedAt" datetime="{{ updated_at }}" title="{{ updated_at | date_to_rfc822 }}">{{ updated_at }}</time>**).
+This data is always a couple of days old (**most recent data is from <time class="dt" datetime="{{ updated_at }}" title="{{ updated_at | date_to_rfc822 }}">{{ updated_at }}</time>, scraped <time class="dt" datetime="{{ scraped_at }}" title="{{ scraped_at | date_to_rfc822 }}">{{ scraped_at | date_to_xmlschema }}</time>**).
 
 Notes are excluded if they meet any of the following criteria:
 
@@ -15,7 +16,9 @@ Notes are excluded if they meet any of the following criteria:
 * Currently rated ‘unhelpful’
 
 <script>
-  const dt = document.getElementById('updatedAt');
-  const rel = luxon.DateTime.fromISO(dt.textContent).toRelative();
-  dt.textContent = rel;
+  const dts = document.getElementsByClassName('dt');
+  for (var i = 0; i < dts.length; i++) {
+    var dt = dts[i];
+    dt.textContent = luxon.DateTime.fromISO(dt.textContent).toRelative();
+  }
 </script>
