@@ -21,9 +21,6 @@ Notes are excluded if they meet any of the following criteria:
 Initial setup:
 
 ```shell
-# Copy files into place
-cp -r static/* output
-
 # Install python dependencies
 pip install -r requirements_dev.txt
 
@@ -35,12 +32,9 @@ Then to run:
 
 ```shell
 # Fetch notes
-python -m x_notes.fetch_notes
-
-# Fetch note statuses
-python -m x_notes.fetch_statuses
+python -m x_notes
 
 # Start the development server
-cd output
+cd static
 jekyll serve --baseurl ""
 ```
