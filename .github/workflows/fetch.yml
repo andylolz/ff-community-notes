@@ -24,20 +24,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Checkout output
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          path: output
-
-      - name: Move files into place
-        run: cp -r static/* output
+      # - name: Checkout output
+      #   uses: actions/checkout@v4
+      #   with:
+      #     ref: gh-pages
+      #     path: output
 
       - name: Fetch notes
-        run: python -m x_notes.fetch_notes
-
-      - name: Fetch statuses
-        run: python -m x_notes.fetch_statuses
+        run: python -m x_notes
 
       # - name: Fetch tweets
       #   run: python -m x_notes.fetch_tweets
@@ -49,6 +43,9 @@ jobs:
       #     PROXY: ${{ secrets.PROXY }}
       #     COOKIES: ${{ secrets.COOKIES }}
       #   continue-on-error: true
+
+      - name: Move files into place
+        run: cp -r static output
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

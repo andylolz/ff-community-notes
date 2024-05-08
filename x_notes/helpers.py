@@ -27,7 +27,7 @@ def get_data(date: date, fname: str) -> Generator:
     return _data_generator()
 
 
-def get_generator(fname: str = "notes") -> Generator:
+def get_generator(fname: str) -> Generator:
     today = date.today()
     try:
         return get_data(today, fname)

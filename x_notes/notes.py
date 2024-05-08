@@ -1,4 +1,3 @@
-import csv
 from datetime import datetime, timedelta, timezone
 import re
 from .helpers import to_isoformat, get_generator
@@ -28,21 +27,19 @@ reasons_lookup = {
 }
 
 
-if __name__ == "__main__":
-    with open("output/_data/notes.csv", "w") as fh:
-        writer = None
-        for row in get_generator():
-            created_at = to_isoformat(row["createdAtMillis"])
-            if float(row["createdAtMillis"]) / 1000 < one_week_ago:
-                # exclude old notes
-                continue
-            if row["classification"] == "NOT_MISLEADING":
-                # exclude "not misleading" notes
-                continue
-            reasons = ", ".join(
-                [v for k, v in reasons_lookup.items() if bool(int(row[k]))]
-            )
-            output = {
+def get_notes() -> list[dict[str, str]]:
+    notes = []
+    for row in get_generator("notes"):
+        created_at = to_isoformat(row["createdAtMillis"])
+        if float(row["createdAtMillis"]) / 1000 < one_week_ago:
+            # exclude old notes
+            continue
+        if row["classification"] == "NOT_MISLEADING":
+            # exclude "not misleading" notes
+            continue
+        reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
+        notes.append(
+            {
                 "tweet_id": row["tweetId"],
                 "note_id": row["noteId"],
                 "note_author_id": row["noteAuthorParticipantId"],
@@ -50,7 +47,5 @@ if __name__ == "__main__":
                 "summary": urlize(row["summary"]),
                 "created_at": created_at,
             }
-            if not writer:
-                writer = csv.DictWriter(fh, fieldnames=output.keys())
-                writer.writeheader()
-            _ = writer.writerow(output)
+        )
+    return sorted(notes, key=lambda x: x["created_at"])
