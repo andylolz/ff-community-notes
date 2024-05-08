@@ -31,7 +31,7 @@ async def fetch_tweets():
     environ["COOKIES"] = json.dumps(account.cookies)
 
     for tweet_id in all_tweet_ids:
-        tweet_fpath = f"output/_data/tweet-{tweet_id}.json"
+        tweet_fpath = f"static/_data/tweet-{tweet_id}.json"
         if exists(tweet_fpath):
             continue
         tweet = await api.tweet_details(int(tweet_id))

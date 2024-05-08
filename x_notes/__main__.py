@@ -10,5 +10,5 @@ if __name__ == "__main__":
     notes = add_statuses(notes)
     print("Saving ...")
     with open("static/data/notes.json", "w") as fh:
-        json.dump(notes, fh, indent=2)
+        json.dump(sorted(notes.values(), key=lambda x: x["created_at"]), fh)
     print("Done.")

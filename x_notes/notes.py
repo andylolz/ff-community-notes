@@ -27,8 +27,8 @@ reasons_lookup = {
 }
 
 
-def get_notes() -> list[dict[str, str]]:
-    notes = []
+def get_notes() -> dict[str, dict[str, str]]:
+    notes = {}
     for row in get_generator("notes"):
         created_at = to_isoformat(row["createdAtMillis"])
         if float(row["createdAtMillis"]) / 1000 < one_week_ago:
@@ -38,14 +38,11 @@ def get_notes() -> list[dict[str, str]]:
             # exclude "not misleading" notes
             continue
         reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
-        notes.append(
-            {
-                "tweet_id": row["tweetId"],
-                "note_id": row["noteId"],
-                "note_author_id": row["noteAuthorParticipantId"],
-                "reasons": reasons,
-                "summary": urlize(row["summary"]),
-                "created_at": created_at,
-            }
-        )
-    return sorted(notes, key=lambda x: x["created_at"])
+        notes[row["noteId"]] = {
+            "tweet_id": row["tweetId"],
+            # "note_author_id": row["noteAuthorParticipantId"],
+            "reasons": reasons,
+            "summary": urlize(row["summary"]),
+            "created_at": created_at,
+        }
+    return notes
