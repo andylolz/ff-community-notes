@@ -6,7 +6,7 @@ title: How it works
 
 Community note data is fetched regularly [from Twitter](https://twitter.com/i/communitynotes/download-data).
 
-This data is always a couple of days old (**last updated: <time id="updatedAt" datetime="{{ updated_at }}" title="{{ updated_at | date_to_rfc822 }}">{{ updated_at }}</time>**).
+This data is always a couple of days old (**the most recent data is from <time id="updatedAt" datetime="{{ updated_at }}" title="{{ updated_at | date_to_rfc822 }}">{{ updated_at }}</time>**).
 
 Notes are excluded if they meet any of the following criteria:
 
