@@ -6,7 +6,9 @@ https://andylolz.github.io/x-community-notes/
 
 ## How it works
 
-Community note data is fetched regularly from [https://twitter.com/i/communitynotes/download-data](https://twitter.com/i/communitynotes/download-data). This data is always a couple of days old.
+Community note data is fetched regularly [from Twitter](https://twitter.com/i/communitynotes/download-data).
+
+This data is always a couple of days old.
 
 Notes are excluded if they meet any of the following criteria:
 
