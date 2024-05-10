@@ -60,8 +60,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             return data;
           }
           content = row['tweet'] ? row['tweet'] : '';
-          username = row['user'] ? row['user'] : '_';
-          return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/' + username + '/status/' + data + '"></a></blockquote>';
+          return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
         }
       },
       {
@@ -69,6 +68,12 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       },
       {
         data: 'reasons'
+      },
+      {
+        data: 'user',
+        searchable: true,
+        visible: false,
+        defaultContent: ''
       },
       {
         data: 'tweet',
