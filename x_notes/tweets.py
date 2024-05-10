@@ -28,7 +28,7 @@ async def fetch_tweets():
         print("Cookie is stale. Deleting it and retrying")
         del account_kwargs["cookies"]
         await api.pool.add_account(**account_kwargs)
-        await api.pool.login_all()
+    await api.pool.login_all()
 
     account = await api.pool.get(account_kwargs["username"])
     if environ.get("UPDATE_SECRET"):
