@@ -34,6 +34,7 @@ def get_notes(notes: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
         if datetime.fromisoformat(v["created_at"]).timestamp() >= one_week_ago
     }
     for row in get_generator("notes"):
+        note_id = row["noteId"]
         created_at = to_isoformat(row["createdAtMillis"])
         if float(row["createdAtMillis"]) / 1000 < one_week_ago:
             # exclude old notes
@@ -41,18 +42,18 @@ def get_notes(notes: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
         if row["classification"] == "NOT_MISLEADING":
             # exclude "not misleading" notes
             continue
-        tweet_content = notes.get(row["noteId"], {}).get("tweet")
-        tweet_lang = notes.get(row["noteId"], {}).get("lang")
+        tweet_content = notes.get(note_id, {}).get("tweet")
+        tweet_lang = notes.get(note_id, {}).get("lang")
         reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
-        notes[row["noteId"]] = {
+        notes[note_id] = {
             "tweet_id": row["tweetId"],
-            "note_id": row["noteId"],
+            "note_id": note_id,
             # "note_author_id": row["noteAuthorParticipantId"],
             "reasons": reasons,
             "summary": urlize(row["summary"]),
             "created_at": created_at,
         }
         if tweet_content:
-            notes[row["noteId"]]["tweet"] = tweet_content
-            notes[row["noteId"]]["lang"] = tweet_lang
+            notes[note_id]["tweet"] = tweet_content
+            notes[note_id]["lang"] = tweet_lang
     return notes
