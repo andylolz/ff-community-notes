@@ -2,7 +2,7 @@ import json
 from os import environ
 from twscrape import API
 from .github import update_secret
-from .helpers import load_notes
+from .helpers import load_notes, save_notes
 
 
 async def fetch_tweets():
@@ -52,5 +52,4 @@ async def fetch_tweets():
             note["tweet"] = tweet.rawContent
         notes[note_id] = note
 
-    with open("static/data/notes.json", "w") as fh:
-        json.dump(list(notes.values()), fh)
+    save_notes(notes)

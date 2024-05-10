@@ -48,3 +48,8 @@ def load_notes() -> dict[str, dict[str, str]]:
     except Exception:
         notes = {}
     return notes
+
+
+def save_notes(notes: dict[str, dict[str, str]]):
+    with open("static/data/notes.json", "w") as fh:
+        json.dump(list(notes.values()), fh)
