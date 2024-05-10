@@ -16,7 +16,7 @@ async def fetch_tweets():
     }
     cookies = environ.get("COOKIES")
     if cookies:
-        account_kwargs["cookies"] = json.loads(cookies)
+        account_kwargs["cookies"] = cookies
     proxy = environ.get("PROXY")
     if proxy:
         account_kwargs["proxy"] = proxy
