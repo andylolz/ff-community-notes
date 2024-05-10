@@ -47,10 +47,10 @@ async def fetch_tweets():
             break
         if tweet:
             note["lang"] = tweet.lang
-            note["content"] = tweet.rawContent
+            note["tweet"] = tweet.rawContent
         else:
             note["lang"] = None
-            note["content"] = None
+            note["tweet"] = None
         notes[note_id] = note
 
     with open("static/data/notes.json", "w") as fh:
