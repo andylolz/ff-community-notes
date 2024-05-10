@@ -55,7 +55,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           if (type !== 'display') {
             return data;
           }
-          return '<blockquote class="twitter-tweet"><a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
+          return '<blockquote class="twitter-tweet">' + (row['content'] ? row['content'] : '') + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
         }
       },
       {
@@ -63,6 +63,12 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       },
       {
         data: 'reasons'
+      },
+      {
+        data: 'content',
+        searchable: true,
+        visible: false,
+        defaultContent: ''
       }
     ],
     drawCallback: function (settings) {
