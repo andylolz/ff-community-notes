@@ -59,7 +59,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           if (type !== 'display') {
             return data;
           }
-          return '<blockquote class="twitter-tweet">' + (row['tweet'] ? row['tweet'] : '') + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
+          content = row['tweet'] ? row['tweet'] : '';
+          username = row['user'] ? row['user'] : '_';
+          return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/' + username + '/status/' + data + '"></a></blockquote>';
         }
       },
       {
