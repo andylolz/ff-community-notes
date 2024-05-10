@@ -30,8 +30,8 @@ jobs:
           ref: gh-pages
           path: previous
 
-      - name: Move files into place
-        run: cp -r previous/* static
+      - name: Move data into place
+        run: mv previous/data/notes.json static/data
 
       - name: Fetch tweets
         run: python -m x_notes.fetch_tweets
