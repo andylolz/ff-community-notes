@@ -24,7 +24,11 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
   let table = new DataTable('table', {
     ajax: {
       url: '{{ '/data/notes.json' | relative_url }}',
-      dataSrc: ''
+      "dataSrc": function ( data ) {
+        return data.filter(function(item) {
+          return (item.lang === undefined || item.lang === "en");
+        });
+      }
     },
     columns: [
       {
