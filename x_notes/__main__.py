@@ -2,11 +2,13 @@ from datetime import datetime, timezone
 import json
 from .notes import get_notes
 from .statuses import add_statuses
+from .helpers import load_notes
 
 
 if __name__ == "__main__":
     print("Fetching notes ...")
-    notes = get_notes()
+    notes = load_notes()
+    notes = get_notes(notes)
 
     print("Fetching statuses ...")
     notes = add_statuses(notes)

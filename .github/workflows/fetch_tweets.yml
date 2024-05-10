@@ -1,9 +1,9 @@
-name: Fetch notes
+name: Fetch tweets
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */4 * * *"
+    - cron: "30 */1 * * *"
 
 permissions:
   contents: write
@@ -33,8 +33,18 @@ jobs:
       - name: Move files into place
         run: cp -r previous/* static
 
-      - name: Fetch notes
-        run: python -m x_notes
+      - name: Fetch tweets
+        run: python -m x_notes.fetch_tweets
+        env:
+          UPDATE_SECRET: 1
+          TWS_RAISE_WHEN_NO_ACCOUNT: 1
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          USER: ${{ secrets.USER }}
+          PASS: ${{ secrets.PASS }}
+          EMAIL: ${{ secrets.EMAIL }}
+          PROXY: ${{ secrets.PROXY }}
+          COOKIES: ${{ secrets.COOKIES }}
+          REPO: ${{ github.repository }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
