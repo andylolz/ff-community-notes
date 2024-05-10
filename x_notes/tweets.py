@@ -38,19 +38,18 @@ async def fetch_tweets():
     note_ids = list(notes.keys())
     for note_id in note_ids:
         note = notes[note_id]
-        if "tweet" in note:
+        if "dl" in note:
             continue
         try:
             tweet = await api.tweet_details(int(note["tweet_id"]))
         except Exception as e:
             print(e)
             break
+        note["dl"] = 1
         if tweet:
             note["lang"] = tweet.lang
+            note["user"] = tweet.user.username
             note["tweet"] = tweet.rawContent
-        else:
-            note["lang"] = None
-            note["tweet"] = None
         notes[note_id] = note
 
     with open("static/data/notes.json", "w") as fh:
