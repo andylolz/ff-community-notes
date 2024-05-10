@@ -1,2 +1,4 @@
 requests
-# twscrape
+
+twscrape
+PyNaCl

@@ -1,14 +1,12 @@
-import asyncio
-import csv
 import json
 from os import environ
-from os.path import exists
 from twscrape import API
+from .github import update_secret
+from .helpers import load_notes
 
 
 async def fetch_tweets():
-    with open("output/_data/notes.csv") as fh:
-        all_tweet_ids = [row["tweet_id"] for row in csv.DictReader(fh)]
+    notes = load_notes()
 
     account_kwargs = {
         "username": environ["USER"],
@@ -24,25 +22,36 @@ async def fetch_tweets():
         account_kwargs["proxy"] = proxy
 
     api = API()
-    await api.pool.add_account(**account_kwargs)
+    try:
+        await api.pool.add_account(**account_kwargs)
+    except ValueError:
+        # cookie is stale. Delete it and retry
+        del account_kwargs["cookies"]
+        await api.pool.add_account(**account_kwargs)
     await api.pool.login_all()
 
     account = await api.pool.get(account_kwargs["username"])
-    environ["COOKIES"] = json.dumps(account.cookies)
+    if environ.get("UPDATE_SECRET"):
+        print("Updating secret ...")
+        update_secret("COOKIES", json.dumps(account.cookies))
 
-    for tweet_id in all_tweet_ids:
-        tweet_fpath = f"static/_data/tweet-{tweet_id}.json"
-        if exists(tweet_fpath):
+    note_ids = list(notes.keys())
+    for note_id in note_ids:
+        note = notes[note_id]
+        if "tweet" in note:
             continue
-        tweet = await api.tweet_details(int(tweet_id))
+        try:
+            tweet = await api.tweet_details(int(note["tweet_id"]))
+        except Exception as e:
+            print(e)
+            break
         if tweet:
-            tweet = tweet.json()
+            note["lang"] = tweet.lang
+            note["content"] = tweet.rawContent
         else:
-            tweet = ""
-        with open(tweet_fpath, "w") as fh:
-            fh.write(tweet)
+            note["lang"] = None
+            note["content"] = None
+        notes[note_id] = note
 
-
-if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(fetch_tweets())
+    with open("static/data/notes.json", "w") as fh:
+        json.dump(list(notes.values()), fh)

@@ -1,6 +1,7 @@
 import csv
 from datetime import date, datetime, timedelta, timezone
 from io import StringIO
+import json
 import requests
 from typing import Generator
 
@@ -35,3 +36,15 @@ def get_generator(fname: str) -> Generator:
         pass
     yesterday = today - timedelta(days=1)
     return get_data(yesterday, fname)
+
+
+def load_notes() -> dict[str, dict[str, str]]:
+    try:
+        with open("static/data/notes.json") as fh:
+            notes = {
+                note["note_id"]: note
+                for note in json.load(fh)
+            }
+    except Exception:
+        notes = {}
+    return notes
