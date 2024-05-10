@@ -42,18 +42,15 @@ def get_notes(notes: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
         if row["classification"] == "NOT_MISLEADING":
             # exclude "not misleading" notes
             continue
-        tweet_content = notes.get(note_id, {}).get("tweet")
-        tweet_lang = notes.get(note_id, {}).get("lang")
         reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
-        notes[note_id] = {
+        note = notes.get(note_id, {})
+        note.update({
             "tweet_id": row["tweetId"],
             "note_id": note_id,
             # "note_author_id": row["noteAuthorParticipantId"],
             "reasons": reasons,
             "summary": urlize(row["summary"]),
             "created_at": created_at,
-        }
-        if tweet_content:
-            notes[note_id]["tweet"] = tweet_content
-            notes[note_id]["lang"] = tweet_lang
+        })
+        notes[note_id] = note
     return notes
