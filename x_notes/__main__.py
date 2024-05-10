@@ -1,8 +1,6 @@
-from datetime import datetime, timezone
-import json
 from .notes import get_notes
 from .statuses import add_statuses
-from .helpers import load_notes, save_notes
+from .helpers import load_notes, save_notes, save_metadata
 
 
 if __name__ == "__main__":
@@ -21,10 +19,6 @@ if __name__ == "__main__":
 
     print("Saving ...")
     save_notes(notes)
-    with open("static/_data/meta.json", "w") as fh:
-        json.dump({
-            "scraped_at": datetime.now(timezone.utc).isoformat(),
-            "most_recent": list(notes.values())[0]["created_at"],
-        }, fh)
+    save_metadata(notes)
 
     print("Done.")
