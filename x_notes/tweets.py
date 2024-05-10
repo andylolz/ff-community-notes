@@ -25,7 +25,7 @@ async def fetch_tweets():
     try:
         await api.pool.add_account(**account_kwargs)
     except ValueError:
-        # cookie is stale. Delete it and retry
+        print("Cookie is stale. Deleting it and retrying")
         del account_kwargs["cookies"]
         await api.pool.add_account(**account_kwargs)
         await api.pool.login_all()
