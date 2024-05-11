@@ -27,6 +27,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       url: '{{ '/data/notes.json' | relative_url }}',
       "dataSrc": function ( data ) {
         return data.filter(function(item) {
+          if (item.deleted === 1) {
+            return false;
+          }
           return (item.lang === undefined || item.lang === "en");
         });
       }
