@@ -40,7 +40,7 @@ def get_generator(fname: str) -> Generator:
 
 def load_notes() -> dict[str, dict[str, Any]]:
     try:
-        with open("static/data/notes.json") as fh:
+        with open("output/data/notes.json") as fh:
             notes = {
                 note["note_id"]: note
                 for note in json.load(fh)
@@ -51,12 +51,12 @@ def load_notes() -> dict[str, dict[str, Any]]:
 
 
 def save_notes(notes: dict[str, dict[str, Any]]):
-    with open("static/data/notes.json", "w") as fh:
+    with open("output/data/notes.json", "w") as fh:
         json.dump(list(notes.values()), fh)
 
 
 def save_metadata(notes: dict[str, dict[str, str]]):
-    with open("static/_data/meta.json", "w") as fh:
+    with open("output/_data/meta.json", "w") as fh:
         json.dump({
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "most_recent": list(notes.values())[0]["created_at"],

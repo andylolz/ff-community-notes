@@ -161,8 +161,8 @@ cython_debug/
 
 # Jekyll
 _site/
-static/data/*.json
-static/_data/*.json
+output/data/*.json
+output/_data/*.json
 
 # Mac OS
 .DS_Store

@@ -31,7 +31,7 @@ jobs:
           path: previous
 
       - name: Move data into place
-        run: mv previous/data/notes.json static/data
+        run: mv previous/data/notes.json output/data
 
       - name: Fetch notes
         run: python -m x_notes
@@ -39,5 +39,5 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: static
+          folder: output
           single-commit: true

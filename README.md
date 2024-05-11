@@ -35,6 +35,6 @@ Then to run:
 python -m x_notes
 
 # Start the development server
-cd static
+cd output
 jekyll serve --baseurl ""
 ```

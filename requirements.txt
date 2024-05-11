@@ -1,4 +1,4 @@
-requests
-
-twscrape
+python-dotenv
 PyNaCl
+requests
+twscrape

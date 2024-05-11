@@ -23,13 +23,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: gh-pages
-          path: output
+          path: gh-pages
 
       - name: Copy files into place
-        run: cp -r static/* output
+        run: cp -r output/* gh-pages
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: output
+          folder: gh-pages
           single-commit: true
