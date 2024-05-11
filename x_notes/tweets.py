@@ -7,6 +7,7 @@ from .helpers import load_notes, save_notes
 
 
 async def login() -> API:
+    print("Attempting to log in")
     api = API()
 
     username = environ["USER"]
@@ -48,11 +49,12 @@ async def fetch_tweets() -> None:
     while True:
         note = get_next_unfetched_note()
         if not note:
-            # No more tweets to fetch
+            print("No more tweets to fetch")
             break
         note_id = note["note_id"]
         tweet = await api.tweet_details(int(note["tweet_id"]))
         if not tweet:
+            print("Failed to fetch tweet")
             if retry_login and environ.get("COOKIES"):
                 retry_login = False
                 await api.pool.delete_inactive()
@@ -60,7 +62,7 @@ async def fetch_tweets() -> None:
                 api = await login()
                 continue
             else:
-                # Looks like we’re rate limited – give up
+                print("Rate limited – give up")
                 break
         note["dl"] = 1
         if tweet:
