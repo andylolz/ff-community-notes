@@ -35,11 +35,11 @@ async def login() -> API:
 
 
 async def fetch_tweets() -> None:
-    def get_next_unfetched_note() -> dict[str, Any] | None:
+    def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
         return next((note for note in notes.values() if "dl" not in note), None)
 
     notes = load_notes()
-    if not get_next_unfetched_note():
+    if not get_next_unfetched_note(notes):
         print("No tweets to fetch")
         return
 
@@ -47,7 +47,7 @@ async def fetch_tweets() -> None:
     retry_login = True
 
     while True:
-        note = get_next_unfetched_note()
+        note = get_next_unfetched_note(notes)
         if not note:
             print("No more tweets to fetch")
             break
