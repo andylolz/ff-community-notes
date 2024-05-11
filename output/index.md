@@ -22,6 +22,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 
 <script>
   let table = new DataTable('table', {
+    fixedHeader: true,
     ajax: {
       url: '{{ '/data/notes.json' | relative_url }}',
       "dataSrc": function ( data ) {
@@ -86,4 +87,11 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       twttr.widgets.load();
     }
   });
+
+  twttr.events.bind(
+    'rendered',
+    function () {
+      table.fixedHeader.adjust();
+    }
+  );
 </script>
