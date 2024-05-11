@@ -1,5 +1,6 @@
 import json
 from os import environ
+from typing import Any
 from twscrape import API
 from .github import update_secret
 from .helpers import load_notes, save_notes

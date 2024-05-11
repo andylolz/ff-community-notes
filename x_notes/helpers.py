@@ -2,8 +2,8 @@ import csv
 from datetime import date, datetime, timedelta, timezone
 from io import StringIO
 import json
+from typing import Any, Generator
 import requests
-from typing import Generator
 
 
 def to_isoformat(ms_since_epoch: str) -> str:
@@ -38,7 +38,7 @@ def get_generator(fname: str) -> Generator:
     return get_data(yesterday, fname)
 
 
-def load_notes() -> dict[str, dict[str, str]]:
+def load_notes() -> dict[str, dict[str, Any]]:
     try:
         with open("static/data/notes.json") as fh:
             notes = {
@@ -50,7 +50,7 @@ def load_notes() -> dict[str, dict[str, str]]:
     return notes
 
 
-def save_notes(notes: dict[str, dict[str, str]]):
+def save_notes(notes: dict[str, dict[str, Any]]):
     with open("static/data/notes.json", "w") as fh:
         json.dump(list(notes.values()), fh)
 

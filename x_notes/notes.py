@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 import re
+from typing import Any
 from .helpers import to_isoformat, get_generator
 
 
@@ -27,7 +28,7 @@ reasons_lookup = {
 }
 
 
-def get_notes(notes: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
+def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
     notes = {
         k: v
         for k, v in notes.items()

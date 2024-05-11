@@ -1,3 +1,4 @@
+from typing import Any
 from .helpers import get_generator, to_isoformat
 
 
@@ -5,7 +6,7 @@ helpful = "CURRENTLY_RATED_HELPFUL"
 unhelpful = "CURRENTLY_RATED_NOT_HELPFUL"
 
 
-def add_statuses(notes: dict[str, dict[str, str]]) -> dict[str, dict[str, str]]:
+def add_statuses(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
     for row in get_generator("noteStatusHistory"):
         note_id = row["noteId"]
         if note_id not in notes:
