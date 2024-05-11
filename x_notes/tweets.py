@@ -6,46 +6,61 @@ from .github import update_secret
 from .helpers import load_notes, save_notes
 
 
-async def fetch_tweets():
-    notes = load_notes()
+async def login() -> API:
+    api = API()
 
+    username = environ["USER"]
     account_kwargs = {
-        "username": environ["USER"],
+        "username": username,
         "password": environ["PASS"],
         "email": environ["EMAIL"],
         "email_password": "",
     }
-    cookies = environ.get("COOKIES")
-    if cookies:
-        account_kwargs["cookies"] = cookies
     proxy = environ.get("PROXY")
     if proxy:
         account_kwargs["proxy"] = proxy
+    cookies = environ.get("COOKIES")
+    if cookies:
+        account_kwargs["cookies"] = cookies
 
-    api = API()
-    try:
-        await api.pool.add_account(**account_kwargs)
-    except ValueError:
-        print("Cookie is stale. Deleting it and retrying")
-        del account_kwargs["cookies"]
-        await api.pool.add_account(**account_kwargs)
-    await api.pool.login_all()
+    await api.pool.add_account(**account_kwargs)
+    if not cookies:
+        await api.pool.login_all()
+        account = await api.pool.get(username)
+        if environ.get("UPDATE_SECRET"):
+            print("Updating secret ...")
+            update_secret("COOKIES", json.dumps(account.cookies))
+    return api
 
-    account = await api.pool.get(account_kwargs["username"])
-    if environ.get("UPDATE_SECRET"):
-        print("Updating secret ...")
-        update_secret("COOKIES", json.dumps(account.cookies))
 
-    note_ids = list(notes.keys())
-    for note_id in note_ids:
-        note = notes[note_id]
-        if "dl" in note:
-            continue
-        try:
-            tweet = await api.tweet_details(int(note["tweet_id"]))
-        except Exception as e:
-            print(e)
+async def fetch_tweets() -> None:
+    def get_next_unfetched_note() -> dict[str, Any] | None:
+        return next((note for note in notes.values() if "dl" not in note), None)
+
+    notes = load_notes()
+    if not get_next_unfetched_note():
+        print("No tweets to fetch")
+        return
+
+    api = await login()
+    retry_login = True
+
+    while True:
+        note = get_next_unfetched_note()
+        if not note:
+            # No more tweets to fetch
             break
+        note_id = note["note_id"]
+        tweet = await api.tweet_details(int(note["tweet_id"]))
+        if not tweet:
+            if retry_login and environ.get("COOKIES"):
+                retry_login = False
+                del environ["COOKIES"]
+                api = await login()
+                continue
+            else:
+                # Looks like we’re rate limited – give up
+                break
         note["dl"] = 1
         if tweet:
             note["lang"] = tweet.lang
