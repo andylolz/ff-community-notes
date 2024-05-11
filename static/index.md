@@ -84,6 +84,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     ],
     drawCallback: function (settings) {
       twttr.widgets.load();
-    }
+    },
+    stateSave: true
   });
 </script>
