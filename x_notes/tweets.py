@@ -1,7 +1,7 @@
 import json
 from os import environ
 from typing import Any
-from twscrape import API
+from twscrape import API, NoAccountError
 from .github import update_secret
 from .helpers import load_notes, save_notes
 
@@ -44,7 +44,6 @@ async def fetch_tweets() -> None:
         return
 
     api = await login()
-    retry_login = True
 
     while True:
         note = get_next_unfetched_note(notes)
@@ -52,19 +51,19 @@ async def fetch_tweets() -> None:
             print("No more tweets to fetch")
             break
         note_id = note["note_id"]
-        tweet = await api.tweet_details(int(note["tweet_id"]))
+        try:
+            tweet = await api.tweet_details(int(note["tweet_id"]))
+        except NoAccountError:
+            print("Rate limited – giving up")
+            break
         account = await api.pool.get(environ["USER"])
         if not account.active:
             print("Failed to fetch tweet")
-            if retry_login and environ.get("COOKIES"):
-                retry_login = False
+            if environ.get("COOKIES"):
                 await api.pool.delete_inactive()
                 del environ["COOKIES"]
                 api = await login()
-                continue
-            else:
-                print("Rate limited – give up")
-                break
+            continue
         note["dl"] = 1
         if tweet:
             note["lang"] = tweet.lang
