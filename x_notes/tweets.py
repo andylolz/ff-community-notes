@@ -53,7 +53,8 @@ async def fetch_tweets() -> None:
             break
         note_id = note["note_id"]
         tweet = await api.tweet_details(int(note["tweet_id"]))
-        if not tweet:
+        account = await api.pool.get(environ["USER"])
+        if not account.active:
             print("Failed to fetch tweet")
             if retry_login and environ.get("COOKIES"):
                 retry_login = False
