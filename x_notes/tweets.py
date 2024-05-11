@@ -55,6 +55,7 @@ async def fetch_tweets() -> None:
         if not tweet:
             if retry_login and environ.get("COOKIES"):
                 retry_login = False
+                await api.pool.delete_inactive()
                 del environ["COOKIES"]
                 api = await login()
                 continue
