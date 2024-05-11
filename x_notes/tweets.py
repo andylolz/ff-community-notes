@@ -69,6 +69,8 @@ async def fetch_tweets() -> None:
             note["lang"] = tweet.lang
             note["user"] = tweet.user.username
             note["tweet"] = tweet.rawContent
+        else:
+            note["deleted"] = 1
         notes[note_id] = note
 
     save_notes(notes)
