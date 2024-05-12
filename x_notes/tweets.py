@@ -10,7 +10,6 @@ from .helpers import get_tweets_with_multi_notes, load_notes, save_notes
 
 
 async def login() -> API:
-    logger.info("Attempting to log in")
     api = API()
 
     username = environ["USER"]
@@ -25,10 +24,12 @@ async def login() -> API:
         account_kwargs["proxy"] = proxy
     cookies = environ.get("COOKIES")
     if cookies:
+        logger.info("Cookie found. No need to login")
         account_kwargs["cookies"] = cookies
 
     await api.pool.add_account(**account_kwargs)
     if not cookies:
+        logger.info("Attempting to log in")
         await api.pool.login_all()
         account = await api.pool.get(username)
         if environ.get("UPDATE_SECRET"):
