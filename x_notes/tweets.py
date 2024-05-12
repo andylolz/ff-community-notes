@@ -45,6 +45,7 @@ async def fetch_tweets() -> None:
 
     api = await login()
 
+    total_fetched = 0
     while True:
         note = get_next_unfetched_note(notes)
         if not note:
@@ -65,6 +66,7 @@ async def fetch_tweets() -> None:
                 api = await login()
             continue
         note["dl"] = 1
+        total_fetched += 1
         if tweet:
             note["lang"] = tweet.lang
             note["user"] = tweet.user.username
@@ -73,4 +75,5 @@ async def fetch_tweets() -> None:
             note["deleted"] = 1
         notes[note_id] = note
 
+    print(f"Total fetched: {total_fetched}")
     save_notes(notes)
