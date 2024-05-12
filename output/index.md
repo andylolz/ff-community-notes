@@ -30,7 +30,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           if (item.deleted === 1) {
             return false;
           }
-          return (item.lang === undefined || item.lang === "en");
+          return (item.lang === undefined || ['en', 'zxx'].includes(item.lang));
         });
       }
     },
