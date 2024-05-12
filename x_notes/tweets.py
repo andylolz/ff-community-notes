@@ -24,7 +24,7 @@ async def login() -> API:
         account_kwargs["proxy"] = proxy
     cookies = environ.get("COOKIES")
     if cookies:
-        logger.info("Cookie found. No need to login")
+        logger.info("Cookie found. No need to log in")
         account_kwargs["cookies"] = cookies
 
     await api.pool.add_account(**account_kwargs)
