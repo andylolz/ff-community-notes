@@ -50,12 +50,12 @@ def load_notes() -> dict[str, dict[str, Any]]:
     return notes
 
 
-def save_notes(notes: dict[str, dict[str, Any]]):
+def save_notes(notes: dict[str, dict[str, Any]]) -> None:
     with open("output/data/notes.json", "w") as fh:
         json.dump(list(notes.values()), fh)
 
 
-def save_metadata(notes: dict[str, dict[str, str]]):
+def save_metadata(notes: dict[str, dict[str, Any]]) -> None:
     with open("output/_data/meta.json", "w") as fh:
         json.dump({
             "scraped_at": datetime.now(timezone.utc).isoformat(),
