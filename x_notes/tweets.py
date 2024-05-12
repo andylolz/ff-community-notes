@@ -84,5 +84,8 @@ async def fetch_tweets() -> None:
         for update_note_id in tweets_with_multi_notes.get(note["tweet_id"], [note_id]):
             notes[update_note_id] = {**note, **note_update}
 
+    if total_fetched == 0:
+        raise Exception("Failed to fetch any tweets")
+
     logger.info(f"Total tweets fetched: {total_fetched}")
     save_notes(notes)
