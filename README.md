@@ -16,6 +16,8 @@ Notes are excluded if they meet any of the following criteria:
 * Classifying the post as ‘not misleading’ (i.e. in support of the post)
 * Currently rated ‘unhelpful’
 
+We also attempt to filter out notes for deleted tweets and non-English tweets.
+
 ## Running locally
 
 Initial setup:
