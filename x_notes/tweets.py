@@ -9,6 +9,17 @@ from .github import update_secret
 from .helpers import get_tweets_with_multi_notes, load_notes, save_notes
 
 
+def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
+    return next((note for note in notes.values() if "dl" not in note), None)
+
+
+def log_stats(notes: dict[str, dict[str, Any]]) -> None:
+    total_notes = len(notes)
+    total_unfetched = len([1 for note in notes.values() if "dl" not in note])
+    logger.info(f"Total notes: {total_notes}")
+    logger.info(f"Total to be fetched: {total_unfetched}")
+
+
 async def login() -> API:
     api = API()
 
@@ -39,9 +50,6 @@ async def login() -> API:
 
 
 async def fetch_tweets() -> None:
-    def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
-        return next((note for note in notes.values() if "dl" not in note), None)
-
     notes = load_notes()
     if not get_next_unfetched_note(notes):
         logger.info("No tweets to fetch")
@@ -88,4 +96,6 @@ async def fetch_tweets() -> None:
         raise Exception("Failed to fetch any tweets")
 
     logger.info(f"Total tweets fetched: {total_fetched}")
+    log_stats(notes)
+
     save_notes(notes)
