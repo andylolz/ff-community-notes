@@ -9,8 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: all_workflows
 
 jobs:
   fetch:
