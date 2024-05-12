@@ -4,7 +4,7 @@ from typing import Any
 from loguru import logger
 from twscrape import API, NoAccountError
 from .github import update_secret
-from .helpers import load_notes, save_notes
+from .helpers import load_notes, save_notes, get_tweets_with_multi_notes
 
 
 async def login() -> API:
@@ -44,6 +44,8 @@ async def fetch_tweets() -> None:
         logger.info("No tweets to fetch")
         return
 
+    tweets_with_multi_notes = get_tweets_with_multi_notes(notes)
+
     api = await login()
 
     total_fetched = 0
@@ -66,15 +68,18 @@ async def fetch_tweets() -> None:
                 del environ["COOKIES"]
                 api = await login()
             continue
-        note["dl"] = 1
+        note_update = {
+            "dl": 1,
+        }
         total_fetched += 1
         if tweet:
-            note["lang"] = tweet.lang
-            note["user"] = tweet.user.username
-            note["tweet"] = tweet.rawContent
+            note_update["lang"] = tweet.lang
+            note_update["user"] = tweet.user.username
+            note_update["tweet"] = tweet.rawContent
         else:
-            note["deleted"] = 1
-        notes[note_id] = note
+            note_update["deleted"] = 1
+        for update_note_id in tweets_with_multi_notes.get(note["tweet_id"], [note_id]):
+            notes[update_note_id] = {**note, **note_update}
 
-    logger.info(f"Total fetched: {total_fetched}")
+    logger.info(f"Total tweets fetched: {total_fetched}")
     save_notes(notes)

@@ -1,3 +1,4 @@
+from collections import defaultdict
 import csv
 from datetime import date, datetime, timedelta, timezone
 from io import StringIO
@@ -61,3 +62,15 @@ def save_metadata(notes: dict[str, dict[str, Any]]) -> None:
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "most_recent": list(notes.values())[0]["created_at"],
         }, fh)
+
+
+def get_tweets_with_multi_notes(notes: dict[str, dict[str, Any]]) -> dict[str, list[str]]:
+    tweet_to_notes = defaultdict(list)
+    for note_id, note in notes.items():
+        tweet_to_notes[note["tweet_id"]].append(note_id)
+
+    return {
+        tweet_id: note_ids
+        for tweet_id, note_ids in tweet_to_notes.items()
+        if len(note_ids) > 1
+    }
