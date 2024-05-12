@@ -1,8 +1,8 @@
 from loguru import logger
+
+from .helpers import load_notes, save_metadata, save_notes
 from .notes import get_notes
 from .statuses import add_statuses
-from .helpers import load_notes, save_notes, save_metadata
-
 
 if __name__ == "__main__":
     logger.info("Fetching notes ...")

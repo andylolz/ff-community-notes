@@ -1,9 +1,9 @@
-from typing import Tuple
 from base64 import b64encode
 from os import environ
-from nacl import encoding, public
-import requests
+from typing import Tuple
 
+import requests
+from nacl import encoding, public
 
 _base_url = f"https://api.github.com/repos/{environ['REPO']}/actions/secrets"
 _headers = {
