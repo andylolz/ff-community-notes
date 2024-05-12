@@ -1,13 +1,14 @@
 import json
 from os import environ
 from typing import Any
+from loguru import logger
 from twscrape import API, NoAccountError
 from .github import update_secret
 from .helpers import load_notes, save_notes
 
 
 async def login() -> API:
-    print("Attempting to log in")
+    logger.info("Attempting to log in")
     api = API()
 
     username = environ["USER"]
@@ -29,7 +30,7 @@ async def login() -> API:
         await api.pool.login_all()
         account = await api.pool.get(username)
         if environ.get("UPDATE_SECRET"):
-            print("Updating secret ...")
+            logger.info("Updating secret ...")
             update_secret("COOKIES", json.dumps(account.cookies))
     return api
 
@@ -40,7 +41,7 @@ async def fetch_tweets() -> None:
 
     notes = load_notes()
     if not get_next_unfetched_note(notes):
-        print("No tweets to fetch")
+        logger.info("No tweets to fetch")
         return
 
     api = await login()
@@ -49,17 +50,17 @@ async def fetch_tweets() -> None:
     while True:
         note = get_next_unfetched_note(notes)
         if not note:
-            print("No more tweets to fetch")
+            logger.info("No more tweets to fetch")
             break
         note_id = note["note_id"]
         try:
             tweet = await api.tweet_details(int(note["tweet_id"]))
         except NoAccountError:
-            print("Rate limited – giving up")
+            logger.info("Rate limited – giving up")
             break
         account = await api.pool.get(environ["USER"])
         if not account.active:
-            print("Failed to fetch tweet")
+            logger.info("Failed to fetch tweet")
             if environ.get("COOKIES"):
                 await api.pool.delete_inactive()
                 del environ["COOKIES"]
@@ -75,5 +76,5 @@ async def fetch_tweets() -> None:
             note["deleted"] = 1
         notes[note_id] = note
 
-    print(f"Total fetched: {total_fetched}")
+    logger.info(f"Total fetched: {total_fetched}")
     save_notes(notes)

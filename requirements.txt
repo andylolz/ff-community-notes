@@ -1,4 +1,5 @@
 python-dotenv
+loguru
 PyNaCl
 requests
 twscrape
