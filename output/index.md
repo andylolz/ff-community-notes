@@ -41,7 +41,8 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             return data;
           }
           return '<a href="https://twitter.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
-        }
+        },
+        searchable: false
       },
       {
         data: 'shown', defaultContent: '', render: function (data, type, row, meta) {
@@ -56,7 +57,8 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             content += ' (since removed)';
           }
           return content;
-        }
+        },
+        searchable: false
       },
       {
         data: 'tweet_id', width: '550px', render: function (data, type, row, meta) {
@@ -65,7 +67,8 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           content = row['tweet'] ? row['tweet'] : '';
           return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
-        }
+        },
+        searchable: false
       },
       {
         data: 'summary',
