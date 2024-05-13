@@ -5,9 +5,9 @@ from typing import Tuple
 import requests
 from nacl import encoding, public
 
-_base_url = f"https://api.github.com/repos/{environ['REPO']}/actions/secrets"
+_base_url = f"https://api.github.com/repos/{environ.get('REPO')}/actions/secrets"
 _headers = {
-    "Authorization": f"Bearer {environ['GH_TOKEN']}",
+    "Authorization": f"Bearer {environ.get('GH_TOKEN')}",
 }
 
 
