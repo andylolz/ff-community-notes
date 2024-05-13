@@ -22,6 +22,7 @@ def log_stats(notes: dict[str, dict[str, Any]]) -> None:
 
 async def login() -> API:
     api = API(
+        proxy=environ.get("PROXY"),
         raise_when_no_account=True,
     )
 
@@ -32,9 +33,6 @@ async def login() -> API:
         "email": environ["EMAIL"],
         "email_password": "",
     }
-    proxy = environ.get("PROXY")
-    if proxy:
-        account_kwargs["proxy"] = proxy
     cookies = environ.get("COOKIES")
     if cookies:
         logger.info("Cookie found. No need to log in")
