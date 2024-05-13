@@ -11,9 +11,9 @@ def load_meta() -> dict[str, Any]:
 def account_locked_until() -> str | None:
     meta = load_meta()
     if not meta.get("locked_until"):
-        return
+        return None
     if datetime.fromisoformat(meta["locked_until"]) < datetime.now(timezone.utc):
-        return
+        return None
     return meta["locked_until"]
 
 
