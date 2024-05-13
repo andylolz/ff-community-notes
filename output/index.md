@@ -22,6 +22,13 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 
 <script>
   let table = new DataTable('table', {
+    layout: {
+      topStart: 'paging',
+      bottomStart: 'paging',
+      bottomEnd: 'info',
+      bottom2End: 'pageLength'
+    },
+    stateSave: true,
     fixedHeader: true,
     ajax: {
       url: '{{ '/data/notes.json' | relative_url }}',
