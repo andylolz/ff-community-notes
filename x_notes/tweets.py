@@ -95,11 +95,13 @@ async def fetch_tweets() -> None:
     if locked_until := account.locks.get("TweetDetail"):
         locked_until = locked_until.isoformat()
 
-    update_meta({
-        "locked_until": locked_until,
-        "total_notes": len(notes),
-        "total_fetched": len([1 for note in notes.values() if "dl" in note]),
-    })
+    update_meta(
+        {
+            "locked_until": locked_until,
+            "total_notes": len(notes),
+            "total_fetched": len([1 for note in notes.values() if "dl" in note]),
+        }
+    )
 
     if total_fetched == 0:
         raise Exception("Failed to fetch any tweets")
