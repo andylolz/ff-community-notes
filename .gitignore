@@ -161,6 +161,7 @@ cython_debug/
 
 # Jekyll
 _site/
+gh-pages/
 output/data/*.json
 output/_data/*.json
 
