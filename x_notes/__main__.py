@@ -1,8 +1,10 @@
 from loguru import logger
 
-from .helpers import load_notes, save_metadata, save_notes
+from .helpers import load_notes, save_notes
+from .meta import update_meta_from_notes
 from .notes import get_notes
 from .statuses import add_statuses
+
 
 if __name__ == "__main__":
     logger.info("Fetching notes ...")
@@ -17,6 +19,6 @@ if __name__ == "__main__":
 
     logger.info("Saving ...")
     save_notes(notes)
-    save_metadata(notes)
+    update_meta_from_notes(notes)
 
     logger.info("Done.")

@@ -7,6 +7,7 @@ from twscrape import API, NoAccountError
 
 from .github import update_secret
 from .helpers import get_tweets_with_multi_notes, load_notes, save_notes
+from .meta import update_meta, account_locked_until
 
 
 def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
@@ -56,6 +57,10 @@ async def fetch_tweets() -> None:
         logger.info("No tweets to fetch")
         return
 
+    if locked_until := account_locked_until():
+        logger.warning(f"Can’t fetch tweets: account locked until {locked_until}")
+        return
+
     tweets_with_multi_notes = get_tweets_with_multi_notes(notes)
 
     api = await login()
@@ -92,6 +97,13 @@ async def fetch_tweets() -> None:
             note_update["deleted"] = 1
         for update_note_id in tweets_with_multi_notes.get(note["tweet_id"], [note_id]):
             notes[update_note_id] = {**note, **note_update}
+
+    account = await api.pool.get(environ["TW_USER"])
+    locked_until = account.locks.get("TweetDetail")
+    if locked_until:
+        update_meta({"locked_until": locked_until.isoformat()})
+    else:
+        update_meta({"locked_until": None})
 
     if total_fetched == 0:
         raise Exception("Failed to fetch any tweets")

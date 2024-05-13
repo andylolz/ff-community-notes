@@ -54,17 +54,6 @@ def save_notes(notes: dict[str, dict[str, Any]]) -> None:
         json.dump(list(notes.values()), fh)
 
 
-def save_metadata(notes: dict[str, dict[str, Any]]) -> None:
-    with open("output/_data/meta.json", "w") as fh:
-        json.dump(
-            {
-                "scraped_at": datetime.now(timezone.utc).isoformat(),
-                "most_recent": list(notes.values())[0]["created_at"],
-            },
-            fh,
-        )
-
-
 def get_tweets_with_multi_notes(
     notes: dict[str, dict[str, Any]]
 ) -> dict[str, list[str]]:
