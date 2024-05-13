@@ -29,7 +29,7 @@ pip install -r requirements_dev.txt
 # Install ruby dependencies (Jekyll)
 bundle install
 
-# Copy template .env and populate
+# Copy template .env.example into place (and populate)
 cp .env.example .env
 ```
 
