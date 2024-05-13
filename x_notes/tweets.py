@@ -21,7 +21,9 @@ def log_stats(notes: dict[str, dict[str, Any]]) -> None:
 
 
 async def login() -> API:
-    api = API()
+    api = API(
+        raise_when_no_account=True,
+    )
 
     username = environ["USER"]
     account_kwargs = {
