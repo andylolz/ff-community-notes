@@ -23,10 +23,10 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 <script>
   let table = new DataTable('table', {
     layout: {
-      topStart: 'paging',
-      bottomStart: 'paging',
-      bottomEnd: 'info',
-      bottom2End: 'pageLength'
+      topStart: 'search',
+      topEnd: 'paging',
+      bottomStart: 'info',
+      bottom2Start: 'pageLength'
     },
     stateSave: true,
     fixedHeader: true,
