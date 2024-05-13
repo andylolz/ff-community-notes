@@ -28,6 +28,9 @@ pip install -r requirements_dev.txt
 
 # Install ruby dependencies (Jekyll)
 bundle install
+
+# Copy template .env and populate
+cp .env.example .env
 ```
 
 Then to run:
@@ -35,6 +38,9 @@ Then to run:
 ```shell
 # Fetch notes
 python -m x_notes
+
+# Optional: fetch tweets
+python -m x_notes.fetch_tweets
 
 # Start the development server
 cd output
