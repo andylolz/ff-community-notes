@@ -39,7 +39,8 @@ async def login() -> API:
         account_kwargs["cookies"] = cookies
 
     await api.pool.add_account(**account_kwargs)
-    if not cookies:
+    account = await api.pool.get(username)
+    if not account.active:
         logger.info("Attempting to log in")
         await api.pool.login_all()
         account = await api.pool.get(username)
