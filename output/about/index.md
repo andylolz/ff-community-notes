@@ -14,6 +14,14 @@ Notes are excluded if they meet any of the following criteria:
 
 We also attempt to filter out notes for deleted tweets and non-English tweets.
 
+{% if site.data.meta.total_notes %}
+---
+
+#### Tweet indexing status
+
+{{ site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_notes }}% of tweets are currently indexed ({{ site.data.meta.total_fetched | commify }} / {{ site.data.meta.total_notes }}).
+{% endif %}
+
 <script>
   const dts = document.getElementsByClassName('dt');
   for (var i = 0; i < dts.length; i++) {

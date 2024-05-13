@@ -14,13 +14,6 @@ def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] 
     return next((note for note in notes.values() if "dl" not in note), None)
 
 
-def log_stats(notes: dict[str, dict[str, Any]]) -> None:
-    total_notes = len(notes)
-    total_unfetched = len([1 for note in notes.values() if "dl" not in note])
-    logger.info(f"Total notes: {total_notes}")
-    logger.info(f"Total to be fetched: {total_unfetched}")
-
-
 async def login() -> API:
     api = API(
         proxy=environ.get("TW_PROXY"),
@@ -99,16 +92,16 @@ async def fetch_tweets() -> None:
             notes[update_note_id] = {**note, **note_update}
 
     account = await api.pool.get(environ["TW_USER"])
-    locked_until = account.locks.get("TweetDetail")
-    if locked_until:
-        update_meta({"locked_until": locked_until.isoformat()})
-    else:
-        update_meta({"locked_until": None})
+    if locked_until := account.locks.get("TweetDetail"):
+        locked_until = locked_until.isoformat()
+
+    update_meta({
+        "locked_until": locked_until,
+        "total_notes": len(notes),
+        "total_fetched": len([1 for note in notes.values() if "dl" in note]),
+    })
 
     if total_fetched == 0:
         raise Exception("Failed to fetch any tweets")
-
-    logger.info(f"Total tweets fetched: {total_fetched}")
-    log_stats(notes)
 
     save_notes(notes)
