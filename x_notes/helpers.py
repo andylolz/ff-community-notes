@@ -43,10 +43,7 @@ def get_generator(fname: str) -> Generator:
 def load_notes() -> dict[str, dict[str, Any]]:
     try:
         with open("output/data/notes.json") as fh:
-            notes = {
-                note["note_id"]: note
-                for note in json.load(fh)
-            }
+            notes = {note["note_id"]: note for note in json.load(fh)}
     except Exception:
         notes = {}
     return notes
@@ -59,13 +56,18 @@ def save_notes(notes: dict[str, dict[str, Any]]) -> None:
 
 def save_metadata(notes: dict[str, dict[str, Any]]) -> None:
     with open("output/_data/meta.json", "w") as fh:
-        json.dump({
-            "scraped_at": datetime.now(timezone.utc).isoformat(),
-            "most_recent": list(notes.values())[0]["created_at"],
-        }, fh)
+        json.dump(
+            {
+                "scraped_at": datetime.now(timezone.utc).isoformat(),
+                "most_recent": list(notes.values())[0]["created_at"],
+            },
+            fh,
+        )
 
 
-def get_tweets_with_multi_notes(notes: dict[str, dict[str, Any]]) -> dict[str, list[str]]:
+def get_tweets_with_multi_notes(
+    notes: dict[str, dict[str, Any]]
+) -> dict[str, list[str]]:
     tweet_to_notes = defaultdict(list)
     for note_id, note in notes.items():
         tweet_to_notes[note["tweet_id"]].append(note_id)

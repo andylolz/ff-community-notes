@@ -13,10 +13,7 @@ if __name__ == "__main__":
     notes = add_statuses(notes)
 
     logger.info("Sorting ...")
-    notes = dict(sorted(
-        notes.items(),
-        key=lambda x: x[1]["created_at"],
-        reverse=True))
+    notes = dict(sorted(notes.items(), key=lambda x: x[1]["created_at"], reverse=True))
 
     logger.info("Saving ...")
     save_notes(notes)
