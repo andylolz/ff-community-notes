@@ -40,13 +40,13 @@ jobs:
       - name: Fetch tweets
         run: python -m x_notes.fetch_tweets
         env:
-          UPDATE_SECRET: 1
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           USER: ${{ secrets.USER }}
           PASS: ${{ secrets.PASS }}
           EMAIL: ${{ secrets.EMAIL }}
           PROXY: ${{ secrets.PROXY }}
           COOKIES: ${{ secrets.COOKIES }}
+          UPDATE_SECRET: 1
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPO: ${{ github.repository }}
 
       - name: Deploy 🚀
