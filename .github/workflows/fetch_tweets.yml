@@ -45,9 +45,9 @@ jobs:
           TW_EMAIL: ${{ secrets.EMAIL }}
           TW_PROXY: ${{ secrets.PROXY }}
           TW_COOKIES: ${{ secrets.COOKIES }}
-          UPDATE_SECRET: 1
+          GH_UPDATE_SECRET: 1
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          REPO: ${{ github.repository }}
+          GH_REPO: ${{ github.repository }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

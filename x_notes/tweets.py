@@ -43,7 +43,7 @@ async def login() -> API:
         logger.info("Attempting to log in")
         await api.pool.login_all()
         account = await api.pool.get(username)
-        if environ.get("UPDATE_SECRET"):
+        if environ.get("GH_UPDATE_SECRET"):
             logger.info("Updating secret ...")
             update_secret("COOKIES", json.dumps(account.cookies))
     return api
