@@ -22,18 +22,18 @@ def log_stats(notes: dict[str, dict[str, Any]]) -> None:
 
 async def login() -> API:
     api = API(
-        proxy=environ.get("PROXY"),
+        proxy=environ.get("TW_PROXY"),
         raise_when_no_account=True,
     )
 
-    username = environ["USER"]
+    username = environ["TW_USER"]
     account_kwargs = {
         "username": username,
-        "password": environ["PASS"],
-        "email": environ["EMAIL"],
+        "password": environ["TW_PASS"],
+        "email": environ["TW_EMAIL"],
         "email_password": "",
     }
-    cookies = environ.get("COOKIES")
+    cookies = environ.get("TW_COOKIES")
     if cookies:
         logger.info("Cookie found. No need to log in")
         account_kwargs["cookies"] = cookies
@@ -71,12 +71,12 @@ async def fetch_tweets() -> None:
         except NoAccountError:
             logger.info("Rate limited – giving up")
             break
-        account = await api.pool.get(environ["USER"])
+        account = await api.pool.get(environ["TW_USER"])
         if not account.active:
             logger.info("Failed to fetch tweet")
-            if environ.get("COOKIES"):
+            if environ.get("TW_COOKIES"):
                 await api.pool.delete_inactive()
-                del environ["COOKIES"]
+                del environ["TW_COOKIES"]
                 api = await login()
             continue
         note_update = {

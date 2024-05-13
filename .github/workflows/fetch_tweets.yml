@@ -40,11 +40,11 @@ jobs:
       - name: Fetch tweets
         run: python -m x_notes.fetch_tweets
         env:
-          USER: ${{ secrets.USER }}
-          PASS: ${{ secrets.PASS }}
-          EMAIL: ${{ secrets.EMAIL }}
-          PROXY: ${{ secrets.PROXY }}
-          COOKIES: ${{ secrets.COOKIES }}
+          TW_USER: ${{ secrets.USER }}
+          TW_PASS: ${{ secrets.PASS }}
+          TW_EMAIL: ${{ secrets.EMAIL }}
+          TW_PROXY: ${{ secrets.PROXY }}
+          TW_COOKIES: ${{ secrets.COOKIES }}
           UPDATE_SECRET: 1
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPO: ${{ github.repository }}
