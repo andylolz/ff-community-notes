@@ -34,8 +34,8 @@ jobs:
           ref: gh-pages
           path: previous
 
-      - name: Move data into place
-        run: mv previous/data/notes.json output/data
+      - name: Copy files into place
+        run: cp -r previous/* output
 
       - name: Fetch notes
         run: python -m x_notes
