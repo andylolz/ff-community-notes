@@ -6,8 +6,10 @@ from .notes import get_notes
 from .statuses import add_statuses
 
 if __name__ == "__main__":
-    logger.info("Fetching notes ...")
+    logger.info("Loading existing notes ...")
     notes = load_notes()
+
+    logger.info("Fetching notes ...")
     notes = get_notes(notes)
 
     logger.info("Fetching statuses ...")
