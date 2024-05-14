@@ -19,7 +19,14 @@ We also attempt to filter out notes for deleted tweets and non-English tweets.
 
 #### Tweet indexing status
 
-{{ site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_notes }}% of the notes shown have an indexed tweet ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_notes }}).
+{% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_notes %}
+
+<div class="progress" style="max-width: 500px;" role="progressbar">
+  <div class="progress-bar text-bg-success" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_notes }})</div>
+</div>
+
+{{ perc_fetched }}% of the notes shown have an indexed tweet.
+
 {% endif %}
 
 <script>
