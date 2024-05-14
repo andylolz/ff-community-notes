@@ -12,7 +12,7 @@ def load_notes() -> dict[str, dict[str, Any]]:
     try:
         with open("output/data/notes.json") as fh:
             notes = {note["note_id"]: note for note in json.load(fh)}
-    except Exception:
+    except FileNotFoundError:
         notes = {}
     return notes
 
