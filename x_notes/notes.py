@@ -31,9 +31,7 @@ reasons_lookup = {
 
 def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
     notes_by_tweet_id = {
-        note["tweet_id"]: note
-        for note in notes.items()
-        if "dl" in note
+        note["tweet_id"]: note for note in notes.items() if "dl" in note
     }
     notes = {
         k: v

@@ -7,7 +7,7 @@ from twscrape import API, NoAccountError
 
 from .github import update_secret
 from .helpers import get_tweets_with_multi_notes, load_notes, save_notes
-from .meta import update_meta, account_locked_until
+from .meta import account_locked_until, update_meta
 
 
 def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] | None:
