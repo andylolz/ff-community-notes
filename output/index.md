@@ -74,8 +74,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           content = row['tweet'] ? row['tweet'] : '';
           return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
-        },
-        searchable: false
+        }
       },
       {
         data: 'summary',
