@@ -42,10 +42,10 @@ def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
         note_id = row["noteId"]
         created_at = to_isoformat(row["createdAtMillis"])
         if float(row["createdAtMillis"]) / 1000 < one_week_ago:
-            # exclude old notes
+            # ignore old notes
             continue
         if row["classification"] == "NOT_MISLEADING":
-            # exclude "not misleading" notes
+            # ignore "not misleading" notes
             if note_id in notes:
                 del notes[note_id]
             continue
