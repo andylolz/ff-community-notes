@@ -89,7 +89,7 @@ async def fetch_tweets() -> None:
         else:
             note_update["deleted"] = 1
         for update_note_id in tweets_with_multi_notes.get(note["tweet_id"], [note_id]):
-            notes[update_note_id] = {**note, **note_update}
+            notes[update_note_id] = {**notes[update_note_id], **note_update}
 
     account = await api.pool.get(environ["TW_USER"])
     if locked_until := account.locks.get("TweetDetail"):
