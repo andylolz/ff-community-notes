@@ -3,16 +3,20 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any
 
+from loguru import logger
+
 
 def to_isoformat(ms_since_epoch: str) -> str:
     return datetime.fromtimestamp(int(ms_since_epoch[:-3]), timezone.utc).isoformat()
 
 
 def load_notes() -> dict[str, dict[str, Any]]:
+    fn = "output/data/notes.json"
     try:
-        with open("output/data/notes.json") as fh:
+        with open(fn) as fh:
             notes = {note["note_id"]: note for note in json.load(fh)}
     except FileNotFoundError:
+        logger.warning(f"File not found: {fn}")
         notes = {}
     return notes
 
