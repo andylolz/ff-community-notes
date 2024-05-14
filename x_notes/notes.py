@@ -29,6 +29,11 @@ reasons_lookup = {
 
 
 def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    notes_by_tweet_id = {
+        note["tweet_id"]: note
+        for note in notes.items()
+        if "dl" in note
+    }
     notes = {
         k: v
         for k, v in notes.items()
@@ -42,6 +47,8 @@ def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
             continue
         if row["classification"] == "NOT_MISLEADING":
             # exclude "not misleading" notes
+            if note_id in notes:
+                del notes[note_id]
             continue
         reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
         note = notes.get(note_id, {})
@@ -55,5 +62,10 @@ def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
                 "created_at": created_at,
             }
         )
+        if "dl" not in note and note["tweet_id"] in notes_by_tweet_id:
+            tweet_note = notes_by_tweet_id[note["tweet_id"]]
+            for k in ["dl", "deleted", "lang", "user", "tweet"]:
+                if k in tweet_note:
+                    note[k] = tweet_note[k]
         notes[note_id] = note
     return notes
