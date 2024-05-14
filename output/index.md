@@ -28,7 +28,6 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       bottomStart: 'info',
       bottom2Start: 'pageLength'
     },
-    stateSave: true,
     fixedHeader: true,
     ajax: {
       url: '{{ '/data/notes.json' | relative_url }}',
