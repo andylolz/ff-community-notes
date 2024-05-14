@@ -21,9 +21,7 @@ def add_statuses(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
             row["firstNonNMRStatus"] != helpful
             and row["mostRecentNonNMRStatus"] != helpful
         ):
-            # this has consistently been rated unhelpful,
-            # so exclude it
-            del notes[note_id]
+            # no status update here, so move on
             continue
         if row["firstNonNMRStatus"] == helpful:
             from_ts = to_isoformat(row["timestampMillisOfFirstNonNMRStatus"])
