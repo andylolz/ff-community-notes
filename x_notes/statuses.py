@@ -1,6 +1,7 @@
 from typing import Any
 
-from .helpers import get_generator, to_isoformat
+from .helpers import to_isoformat
+from .tsv import get_generator
 
 helpful = "CURRENTLY_RATED_HELPFUL"
 unhelpful = "CURRENTLY_RATED_NOT_HELPFUL"

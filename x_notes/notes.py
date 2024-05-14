@@ -2,7 +2,8 @@ import re
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from .helpers import get_generator, to_isoformat
+from .helpers import to_isoformat
+from .tsv import get_generator
 
 url_re = re.compile(r"(https?://[^\s]+)")
 one_week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).timestamp()
