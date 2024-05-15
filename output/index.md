@@ -13,6 +13,8 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         <th>Tweet</th>
         <th>Note</th>
         <th>Reasons</th>
+        <th>Tweet language</th>
+        <th>Deleted</th>
         <th>Username</th>
         <th>Tweet content</th>
       </tr>
@@ -25,7 +27,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 <script>
   let table = new DataTable('table', {
     layout: {
-      topStart: 'search',
+      top2Start: 'search',
+      top: 'searchPanes',
+      topStart: 'info',
       topEnd: 'paging',
       bottomStart: 'info',
       bottom2Start: 'pageLength'
@@ -33,14 +37,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     fixedHeader: true,
     ajax: {
       url: '{{ '/data/notes.json' | relative_url }}',
-      dataSrc: function ( data ) {
-        return data.filter(function(item) {
-          if (item.deleted === 1) {
-            return false;
-          }
-          return (item.lang === undefined || ['en', 'zxx'].includes(item.lang));
-        });
-      }
+      dataSrc: ''
     },
     columns: [
       {
@@ -66,7 +63,10 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           return content;
         },
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
       {
         data: 'tweet_id', width: '550px', render: function (data, type, row, meta) {
@@ -78,16 +78,38 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         }
       },
       {
-        data: 'summary',
+        data: 'summary'
       },
       {
-        data: 'reasons'
+        data: 'reasons',
+        searchPanes: {
+          show: false
+        }
+      },
+      {
+        data: 'lang',
+        visible: false,
+        defaultContent: '',
+        searchPanes: {
+          emptyMessage: 'Unknown (deleted tweet)'
+        }
+      },
+      {
+        data: 'deleted',
+        visible: false,
+        defaultContent: 0,
+        searchPanes: {
+          show: true
+        }
       },
       {
         data: 'user',
         searchable: true,
         visible: false,
-        defaultContent: ''
+        defaultContent: '',
+        searchPanes: {
+          show: false
+        }
       },
       {
         data: 'tweet',
@@ -98,6 +120,20 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     ],
     drawCallback: function (settings) {
       twttr.widgets.load();
+    },
+    searchPanes: {
+      orderable: false,
+      preSelect: [
+        {
+          column: 5,
+          rows: ['en', 'zxx']
+        },
+        {
+          column: 6,
+          rows: [0]
+        },
+      ],
+      initCollapsed: true
     }
   });
 
