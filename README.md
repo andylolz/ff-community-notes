@@ -44,5 +44,5 @@ python -m x_notes.fetch_tweets
 
 # Start the development server
 cd output
-jekyll serve --baseurl ""
+jekyll serve
 ```
