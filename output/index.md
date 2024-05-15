@@ -13,6 +13,8 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         <th>Tweet</th>
         <th>Note</th>
         <th>Reasons</th>
+        <th>Username</th>
+        <th>Tweet content</th>
       </tr>
     </thead>
     <tbody>
