@@ -12,9 +12,35 @@ concurrency:
   group: all_workflows
 
 jobs:
-  fetch:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements_dev.txt
+
+      - name: Run flake8
+        run: flake8 x_notes
+
+      - name: Run black
+        run: black x_notes --check
+
+      - name: Run isort
+        run: isort x_notes -c --profile black
+
+  deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
