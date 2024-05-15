@@ -14,12 +14,7 @@ def get_next_unfetched_note(notes: dict[str, dict[str, Any]]) -> dict[str, Any] 
     return next((note for note in notes.values() if "dl" not in note), None)
 
 
-async def login() -> API:
-    api = API(
-        proxy=environ.get("TW_PROXY"),
-        raise_when_no_account=True,
-    )
-
+async def login(api: API) -> None:
     username = environ["TW_USER"]
     account_kwargs = {
         "username": username,
@@ -41,7 +36,6 @@ async def login() -> API:
         if environ.get("GH_UPDATE_SECRET"):
             logger.info("Updating secret ...")
             update_secret("COOKIES", json.dumps(account.cookies))
-    return api
 
 
 async def fetch_tweets() -> None:
@@ -56,7 +50,11 @@ async def fetch_tweets() -> None:
 
     tweets_with_multi_notes = get_tweets_with_multi_notes(notes)
 
-    api = await login()
+    api = API(
+        proxy=environ.get("TW_PROXY"),
+        raise_when_no_account=True,
+    )
+    await login(api)
 
     total_fetched = 0
     while True:
@@ -76,7 +74,7 @@ async def fetch_tweets() -> None:
             if environ.get("TW_COOKIES"):
                 await api.pool.delete_inactive()
                 del environ["TW_COOKIES"]
-                api = await login()
+                await login(api)
             continue
         note_update = {
             "dl": 1,
