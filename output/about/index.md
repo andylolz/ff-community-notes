@@ -25,7 +25,9 @@ We also attempt to filter out notes for deleted tweets and non-English tweets.
   <div class="progress-bar text-bg-{% if perc_fetched == 100 %}success{% else %}warning{% endif %}" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_notes }})</div>
 </div>
 
-{{ perc_fetched }}% of the notes shown have an indexed tweet.
+{{ perc_fetched }}% of notes have an indexed tweet (or the tweet has been deleted).
+
+This means the text of these tweets is searchable.
 
 {% endif %}
 
