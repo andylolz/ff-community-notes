@@ -33,7 +33,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     fixedHeader: true,
     ajax: {
       url: '{{ '/data/notes.json' | relative_url }}',
-      "dataSrc": function ( data ) {
+      dataSrc: function ( data ) {
         return data.filter(function(item) {
           if (item.deleted === 1) {
             return false;
