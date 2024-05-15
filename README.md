@@ -24,7 +24,7 @@ Initial setup:
 
 ```shell
 # Install python dependencies
-pip install -r requirements_dev.txt
+poetry install
 
 # Install ruby dependencies (Jekyll)
 bundle install
@@ -37,10 +37,10 @@ Then to run:
 
 ```shell
 # Fetch notes
-python -m x_notes
+poetry run python -m x_notes
 
 # Optional: fetch tweets
-python -m x_notes.fetch_tweets
+poetry run python -m x_notes.fetch_tweets
 
 # Start the development server
 cd output

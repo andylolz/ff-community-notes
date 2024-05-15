@@ -19,14 +19,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
       - name: Set up python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-          cache: pip
+          python-version-file: pyproject.toml
+          cache: poetry
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: poetry install --only main
 
       - name: Checkout previous version
         uses: actions/checkout@v4
@@ -38,7 +41,7 @@ jobs:
         run: cp -r previous/* output
 
       - name: Fetch notes
-        run: python -m x_notes
+        run: poetry run python -m x_notes
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4

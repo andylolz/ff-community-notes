@@ -1,4 +1,0 @@
-loguru
-PyNaCl
-requests
-twscrape
