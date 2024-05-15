@@ -22,7 +22,7 @@ We also attempt to filter out notes for deleted tweets and non-English tweets.
 {% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_notes %}
 
 <div class="progress" style="max-width: 500px;" role="progressbar">
-  <div class="progress-bar text-bg-success" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_notes }})</div>
+  <div class="progress-bar text-bg-{% if perc_fetched == 100 %}success{% else %}warning{% endif %}" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_notes }})</div>
 </div>
 
 {{ perc_fetched }}% of the notes shown have an indexed tweet.
