@@ -4,4 +4,5 @@ black
 flake8
 isort
 mypy
+pytest
 python-dotenv

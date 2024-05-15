@@ -37,6 +37,9 @@ jobs:
       - name: Run isort
         run: isort x_notes -c --profile black
 
+      - name: Run tests
+        run: pytest tests
+
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
