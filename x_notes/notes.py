@@ -14,7 +14,7 @@ def urlize(inp: str) -> str:
     def format_url(match: re.Match) -> str:
         url = match.group()
         pr = urlparse(url)
-        relative_url = pr._replace(scheme='', netloc='').geturl()
+        relative_url = pr._replace(scheme="", netloc="").geturl()
         if len(relative_url) > 15:
             abbrev_url = f"{pr.scheme}://{pr.netloc}{relative_url[:15]}…"
         else:
