@@ -1,16 +1,27 @@
-import re
 from datetime import datetime, timedelta, timezone
+import re
+from urllib.parse import urlparse
 from typing import Any
 
 from .helpers import to_isoformat
 from .tsv import get_generator
 
-url_re = re.compile(r"(https?://[^\s]+)")
+url_re = re.compile(r"https?:\/\/[^\s]+")
 one_week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).timestamp()
 
 
 def urlize(inp: str) -> str:
-    return url_re.sub(r'<a target="_blank" href="\1">\1</a>', inp)
+    def format_url(match: re.Match) -> str:
+        url = match.group()
+        pr = urlparse(url)
+        relative_url = pr._replace(scheme='', netloc='').geturl()
+        if len(relative_url) > 15:
+            abbrev_url = f"{pr.scheme}://{pr.netloc}{relative_url[:15]}…"
+        else:
+            abbrev_url = url
+        return f'<a target="_blank" href="{url}">{abbrev_url}</a>'
+
+    return url_re.sub(lambda match: format_url(match), inp)
 
 
 reasons_lookup = {
