@@ -14,7 +14,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         <th>Note</th>
         <th>Reasons</th>
         <th>Tweet language</th>
-        <th>Deleted</th>
+        <th>Deleted?</th>
         <th>Username</th>
         <th>Tweet content</th>
       </tr>
