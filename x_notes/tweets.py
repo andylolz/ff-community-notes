@@ -97,7 +97,9 @@ async def fetch_tweets() -> None:
         {
             "locked_until": locked_until,
             "total_tweets": len({note["tweet_id"] for note in notes.values()}),
-            "total_fetched": len({note["tweet_id"] for note in notes.values() if "dl" in note}),
+            "total_fetched": len(
+                {note["tweet_id"] for note in notes.values() if "dl" in note}
+            ),
         }
     )
 
