@@ -96,8 +96,8 @@ async def fetch_tweets() -> None:
     update_meta(
         {
             "locked_until": locked_until,
-            "total_notes": len(notes),
-            "total_fetched": len([1 for note in notes.values() if "dl" in note]),
+            "total_tweets": len({note["tweet_id"] for note in notes.values()}),
+            "total_fetched": len({note["tweet_id"] for note in notes.values() if "dl" in note}),
         }
     )
 

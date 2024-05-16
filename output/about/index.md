@@ -14,20 +14,18 @@ Notes are excluded if they meet any of the following criteria:
 
 We also attempt to filter out notes for deleted tweets and non-English tweets.
 
-{% if site.data.meta.total_notes %}
+{% if site.data.meta.total_tweets %}
 ---
 
 #### Tweet indexing status
 
-{% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_notes %}
+{% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_tweets %}
 
-<div class="progress my-2" style="max-width: 500px;" role="progressbar">
-  <div class="progress-bar text-bg-{% if perc_fetched == 100 %}success{% else %}warning{% endif %}" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_notes }})</div>
+<div class="progress" style="max-width: 500px;" role="progressbar">
+  <div class="progress-bar text-bg-{% if perc_fetched == 100 %}success{% else %}warning{% endif %}" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_tweets }})</div>
 </div>
 
-{{ perc_fetched }}% of notes have an indexed tweet (or the tweet has been deleted).
-
-This means the text of these tweets is searchable.
+{{ perc_fetched }}% of tweets are searchable.
 
 {% endif %}
 
