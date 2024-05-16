@@ -47,7 +47,10 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           return '<a href="https://twitter.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
         },
-        searchable: false
+        searchable: false,
+        searchPanes: {
+          show: false
+        }
       },
       {
         data: 'shown', defaultContent: '', render: function (data, type, row, meta) {
@@ -75,6 +78,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           content = row['tweet'] ? row['tweet'] : '';
           return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
+        },
+        searchPanes: {
+          show: false
         }
       },
       {
@@ -115,8 +121,11 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         data: 'tweet',
         searchable: true,
         visible: false,
-        defaultContent: ''
-      }
+        defaultContent: '',
+        searchPanes: {
+          show: false
+        }
+      },
     ],
     drawCallback: function (settings) {
       twttr.widgets.load();
