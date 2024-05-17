@@ -135,7 +135,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       preSelect: [
         {
           column: 5,
-          rows: ['en', 'zxx']
+          rows: ['en', 'zxx', '']
         },
         {
           column: 6,
