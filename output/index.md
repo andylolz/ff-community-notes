@@ -47,10 +47,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           return '<a href="https://twitter.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
         },
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
+        searchable: false
       },
       {
         data: 'shown', defaultContent: '', render: function (data, type, row, meta) {
@@ -66,10 +63,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           return content;
         },
-        searchable: false,
-        searchPanes: {
-          show: false
-        }
+        searchable: false
       },
       {
         data: 'tweet_id', width: '550px', render: function (data, type, row, meta) {
@@ -78,19 +72,13 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           }
           content = row['tweet'] ? row['tweet'] : '';
           return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
-        },
-        searchPanes: {
-          show: false
         }
       },
       {
         data: 'summary'
       },
       {
-        data: 'reasons',
-        searchPanes: {
-          show: false
-        }
+        data: 'reasons'
       },
       {
         data: 'lang',
@@ -103,28 +91,19 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       {
         data: 'deleted',
         visible: false,
-        defaultContent: 0,
-        searchPanes: {
-          show: true
-        }
+        defaultContent: 0
       },
       {
         data: 'user',
         searchable: true,
         visible: false,
-        defaultContent: '',
-        searchPanes: {
-          show: false
-        }
+        defaultContent: ''
       },
       {
         data: 'tweet',
         searchable: true,
         visible: false,
-        defaultContent: '',
-        searchPanes: {
-          show: false
-        }
+        defaultContent: ''
       },
     ],
     drawCallback: function (settings) {
@@ -132,6 +111,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     },
     searchPanes: {
       orderable: false,
+      columns: [5, 6],
       preSelect: [
         {
           column: 5,
