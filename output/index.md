@@ -36,6 +36,13 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     * Haitian Creole is included (`ht`)
   */
   const langLookup = {'am': 'Amharic', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bo': 'Tibetan', 'bs': 'Bosnian', 'ca': 'Catalan', 'ckb': 'Sorani Kurdish', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'dv': 'Maldivian', 'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'et': 'Estonian', 'eu': 'Basque', 'fa': 'Persian', 'fi': 'Finnish', 'fr': 'French', 'gu': 'Gujarati', 'hi': 'Hindi', 'hi-Latn': 'Latinized Hindi', 'hr': 'Croatian', 'ht': 'Haitian Creole', 'hu': 'Hungarian', 'hy': 'Armenian', 'in': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'iw': 'Hebrew', 'ja': 'Japanese', 'ka': 'Georgian', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'lo': 'Lao', 'lt': 'Lithuanian', 'lv': 'Latvian', 'ml': 'Malayalam', 'mr': 'Marathi', 'my': 'Burmese', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'or': 'Oriya', 'pa': 'Panjabi', 'pl': 'Polish', 'ps': 'Pashto', 'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'sd': 'Sindhi', 'si': 'Sinhala', 'sk': 'Slovak', 'sl': 'Slovenian', 'sr': 'Serbian', 'sv': 'Swedish', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Tagalog', 'tr': 'Turkish', 'ug': 'Uyghur', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'zh-CN': 'Simplified Chinese', 'zh-TW': 'Traditional Chinese', 'zh': 'Chinese', 'art': 'X', 'qam': 'X', 'qct': 'X', 'qht': 'X', 'qme': 'X', 'qst': 'X', 'und': 'X', 'zxx': 'X'}
+
+  const includesReason = function (reason) {
+    return function (rowData, rowIdx) {
+      return rowData['reasons'].split(', ').includes(reason);
+    }
+  }
+
   let table = new DataTable('#notes-table', {
     layout: {
       top2Start: 'search',
@@ -94,7 +101,39 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         data: 'summary'
       },
       {
-        data: 'reasons'
+        data: 'reasons',
+        searchPanes: {
+          options: [
+            {
+              label: 'Factual error',
+              value: includesReason('Factual error'),
+            },
+            {
+              label: 'Manipulated media',
+              value: includesReason('Manipulated media'),
+            },
+            {
+              label: 'Missing important context',
+              value: includesReason('Missing important context'),
+            },
+            {
+              label: 'Other',
+              value: includesReason('Other'),
+            },
+            {
+              label: 'Outdated information',
+              value: includesReason('Outdated information'),
+            },
+            {
+              label: 'Satire',
+              value: includesReason('Satire'),
+            },
+            {
+              label: 'Unverified claim as fact',
+              value: includesReason('Unverified claim as fact'),
+            }
+          ]
+        }
       },
       {
         data: 'lang',
@@ -155,7 +194,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     },
     searchPanes: {
       orderable: false,
-      columns: [5, 6],
+      columns: [5, 6, 4],
       preSelect: [
         {
           column: 5,
