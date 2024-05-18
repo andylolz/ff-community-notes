@@ -101,9 +101,12 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         render: function (data, type, row, meta) {
           if (!data) {
             if (type === 'sort') {
-              return 'ZZZ (put this last)';
+              return '~ (put this last)';
             }
-            return 'Unknown (deleted)';
+            if (type === 'display') {
+              return 'Unknown (deleted)';
+            }
+            return data;
           }
           const niceName = langLookup[data];
           if (niceName === 'X') {
@@ -111,11 +114,17 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             // esoteric twitter things, including emoji-only tweets (`art`)
             // and hashtag-only tweets (`qht`). We lump these all together
             if (type === 'sort') {
-              return 'ZZZ (put this last)';
+              return '~ (put this last)';
             }
-            return 'Twitter special';
+            if (type === 'display') {
+              return 'Twitter special';
+            }
+            return niceName;
           }
-          return niceName + ' (' + data + ')';
+          if (type === 'display') {
+            return niceName + ' (' + data + ')';
+          }
+          return data;
         }
       },
       {
@@ -123,10 +132,10 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         visible: false,
         defaultContent: 0,
         render: function (data, type, row, meta) {
-          if (type !== 'display') {
-            return data;
+          if (type === 'display') {
+            return (data === 1) ? 'Deleted' : 'Published';
           }
-          return (data === 1) ? 'Deleted' : 'Published';
+          return data;
         }
       },
       {
@@ -151,7 +160,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       preSelect: [
         {
           column: 5,
-          rows: ['English (en)', 'Twitter special', 'Unknown (deleted)']
+          rows: ['en', 'X', '']
         },
         {
           column: 6,
