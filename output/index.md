@@ -106,7 +106,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
               return '~ (put this last)';
             }
             if (type === 'display') {
-              return 'Unknown (deleted)';
+              return 'Unknown language (deleted)';
             }
             return data;
           }
@@ -115,15 +115,12 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             // there are a handful of language codes that are used for
             // esoteric twitter things, including emoji-only tweets (`art`)
             // and hashtag-only tweets (`qht`). We lump these all together
-            if (type === 'sort') {
-              return '~ (put this last)';
-            }
             if (type === 'display') {
               return 'Twitter special';
             }
             return niceName;
           }
-          if (type === 'display') {
+          if (type === 'display' || type === 'sort') {
             return niceName + ' (' + data + ')';
           }
           return data;
