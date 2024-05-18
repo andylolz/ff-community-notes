@@ -121,7 +121,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             return niceName;
           }
           if (type === 'display' || type === 'sort') {
-            return niceName + ' (' + data + ')';
+            return niceName;
           }
           return data;
         }
