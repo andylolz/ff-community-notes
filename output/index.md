@@ -100,14 +100,20 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         defaultContent: '',
         render: function (data, type, row, meta) {
           if (!data) {
-            return 'X unknown (deleted)';
+            if (type === 'sort') {
+              return 'ZZZ (put this last)';
+            }
+            return 'Unknown (deleted)';
           }
           const niceName = langLookup[data];
           if (niceName === 'X') {
             // there are a handful of language codes that are used for
             // esoteric twitter things, including emoji-only tweets (`art`)
             // and hashtag-only tweets (`qht`). We lump these all together
-            return 'X special';
+            if (type === 'sort') {
+              return 'ZZZ (put this last)';
+            }
+            return 'Twitter special';
           }
           return niceName + ' (' + data + ')';
         }
@@ -145,7 +151,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       preSelect: [
         {
           column: 5,
-          rows: ['English (en)', 'X special', 'X unknown (deleted)']
+          rows: ['English (en)', 'Twitter special', 'Unknown (deleted)']
         },
         {
           column: 6,
