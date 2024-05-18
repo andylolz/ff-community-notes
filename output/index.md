@@ -41,7 +41,8 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
     },
     columns: [
       {
-        data: 'created_at', render: function (data, type, row, meta) {
+        data: 'created_at',
+        render: function (data, type, row, meta) {
           if (type !== 'display') {
             return data;
           }
@@ -50,7 +51,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         searchable: false
       },
       {
-        data: 'shown', defaultContent: '', render: function (data, type, row, meta) {
+        data: 'shown',
+        defaultContent: '',
+        render: function (data, type, row, meta) {
           if (data === undefined) {
             return '';
           }
@@ -66,7 +69,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         searchable: false
       },
       {
-        data: 'tweet_id', width: '550px', render: function (data, type, row, meta) {
+        data: 'tweet_id',
+        width: '550px',
+        render: function (data, type, row, meta) {
           if (type !== 'display') {
             return data;
           }
