@@ -12,7 +12,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         <th>Note shown</th>
         <th>Tweet</th>
         <th>Note</th>
-        <th>Reasons</th>
+        <th>Reason for note</th>
         <th>Tweet language</th>
         <th>Tweet status</th>
         <th>Username</th>
