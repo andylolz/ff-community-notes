@@ -100,7 +100,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         defaultContent: '',
         render: function (data, type, row, meta) {
           if (!data) {
-            return 'X unknown (deleted tweet)';
+            return 'X unknown (deleted)';
           }
           const niceName = langLookup[data];
           if (niceName === 'X') {
@@ -117,10 +117,10 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         visible: false,
         defaultContent: 0,
         render: function (data, type, row, meta) {
-          if (type === 'display') {
-            return (data === 1) ? 'Deleted' : 'Published';
+          if (type !== 'display') {
+            return data;
           }
-          return data;
+          return (data === 1) ? 'Deleted' : 'Published';
         }
       },
       {
@@ -145,7 +145,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       preSelect: [
         {
           column: 5,
-          rows: ['English (en)', 'X special', 'X unknown (deleted tweet)']
+          rows: ['English (en)', 'X special', 'X unknown (deleted)']
         },
         {
           column: 6,
