@@ -14,10 +14,26 @@ Notes are excluded if they meet any of the following criteria:
 
 We also attempt to filter out notes for deleted tweets and non-English tweets.
 
-{% if site.data.meta.total_tweets %}
----
+### Special twitter language codes
 
-#### Tweet indexing status
+When Twitter can’t determine the language of a tweet, it uses one of several reserved language codes. For the purpose of language filtering, we’ve grouped these all together. But this is the breakdown:
+
+|---------------|---------------------------------------------|
+| Language code | Description                                 |
+|---------------|---------------------------------------------|
+| `art`         | Tweet contains emojis only                  |
+| `qam`         | Tweet contains mentions only                |
+| `qct`         | Tweet contains cashtags only                |
+| `qht`         | Tweet contains hashtags only                |
+| `qme`         | Tweet contains media only                   |
+| `qst`         | Tweet text is very short                    |
+| `und`         | Undefined (couldn’t determine the language) |
+| `zxx`         | Tweet contains media or twitter card only   |
+{: .table .table-striped .w-inherit }
+
+{% if site.data.meta.total_tweets %}
+
+### Tweet indexing status
 
 {% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_tweets %}
 

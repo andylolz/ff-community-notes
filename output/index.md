@@ -5,7 +5,7 @@ title: Twitter community notes
 Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…]({{ '/about/' | relative_url }})_
 
 <div class="table-responsive">
-  <table class="table table-striped" data-order='[[ 0, "desc" ]]'>
+  <table id="notes-table" class="table table-striped" data-order='[[ 0, "desc" ]]'>
     <thead>
       <tr>
         <th>Note created</th>
@@ -116,7 +116,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             // esoteric twitter things, including emoji-only tweets (`art`)
             // and hashtag-only tweets (`qht`). We lump these all together
             if (type === 'display') {
-              return 'Twitter special';
+              return 'Twitter special (see about page)';
             }
             return niceName;
           }
