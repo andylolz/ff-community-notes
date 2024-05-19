@@ -157,7 +157,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
               return '~ (put this last)';
             }
             if (type === 'display') {
-              return 'Unknown language (deleted)';
+              return 'Unknown language (see about page)';
             }
             return data;
           }

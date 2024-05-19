@@ -54,3 +54,9 @@ After fetching new proposed community notes, the text of the tweets that the not
     dt.textContent = luxon.DateTime.fromISO(dt.textContent).toRelative();
   }
 </script>
+
+### Why is the language unknown for some tweets?
+
+Until we’ve fetched a tweet, we don’t know its language. So ‘unknown language’ may mean we haven’t yet fetched that tweet. Once we’ve fetched it (in the next hour or so) we should know the tweet author, language and text.
+
+‘Unknown language’ may also mean the tweet has been deleted. In this case, we have no way of determining the tweet author, language or text.
