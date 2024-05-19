@@ -25,18 +25,18 @@ def urlize(inp: str) -> str:
 
 
 reasons_lookup = {
-    "misleadingOther": "Other",
-    "misleadingFactualError": "Factual error",
-    "misleadingManipulatedMedia": "Manipulated media",
-    "misleadingOutdatedInformation": "Outdated information",
-    "misleadingMissingImportantContext": "Missing important context",
-    "misleadingUnverifiedClaimAsFact": "Unverified claim as fact",
-    "misleadingSatire": "Satire",
-    # "notMisleadingOther": "Other",
-    # "notMisleadingFactuallyCorrect": "Factually correct",
-    # "notMisleadingOutdatedButNotWhenWritten": "Outdated (but not when written)",
-    # "notMisleadingClearlySatire": "Clearly satire",
-    # "notMisleadingPersonalOpinion": "Personal opinion",
+    "misleadingFactualError": 1,
+    "misleadingManipulatedMedia": 2,
+    "misleadingMissingImportantContext": 3,
+    "misleadingOther": 4,
+    "misleadingOutdatedInformation": 5,
+    "misleadingSatire": 6,
+    "misleadingUnverifiedClaimAsFact": 7,
+    # "notMisleadingClearlySatire": 8,
+    # "notMisleadingFactuallyCorrect": 9,
+    # "notMisleadingOther": 10,
+    # "notMisleadingOutdatedButNotWhenWritten": 11,
+    # "notMisleadingPersonalOpinion": 12,
 }
 
 
@@ -60,7 +60,7 @@ def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
             if note_id in notes:
                 del notes[note_id]
             continue
-        reasons = ", ".join([v for k, v in reasons_lookup.items() if bool(int(row[k]))])
+        reasons = [v for k, v in reasons_lookup.items() if bool(int(row[k]))]
         note = notes.get(note_id, {})
         note.update(
             {

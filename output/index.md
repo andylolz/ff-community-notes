@@ -37,9 +37,18 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
   */
   const langLookup = {'am': 'Amharic', 'ar': 'Arabic', 'bg': 'Bulgarian', 'bn': 'Bengali', 'bo': 'Tibetan', 'bs': 'Bosnian', 'ca': 'Catalan', 'ckb': 'Sorani Kurdish', 'cs': 'Czech', 'cy': 'Welsh', 'da': 'Danish', 'de': 'German', 'dv': 'Maldivian', 'el': 'Greek', 'en': 'English', 'es': 'Spanish', 'et': 'Estonian', 'eu': 'Basque', 'fa': 'Persian', 'fi': 'Finnish', 'fr': 'French', 'gu': 'Gujarati', 'hi': 'Hindi', 'hi-Latn': 'Latinized Hindi', 'hr': 'Croatian', 'ht': 'Haitian Creole', 'hu': 'Hungarian', 'hy': 'Armenian', 'in': 'Indonesian', 'is': 'Icelandic', 'it': 'Italian', 'iw': 'Hebrew', 'ja': 'Japanese', 'ka': 'Georgian', 'km': 'Khmer', 'kn': 'Kannada', 'ko': 'Korean', 'lo': 'Lao', 'lt': 'Lithuanian', 'lv': 'Latvian', 'ml': 'Malayalam', 'mr': 'Marathi', 'my': 'Burmese', 'ne': 'Nepali', 'nl': 'Dutch', 'no': 'Norwegian', 'or': 'Oriya', 'pa': 'Panjabi', 'pl': 'Polish', 'ps': 'Pashto', 'pt': 'Portuguese', 'ro': 'Romanian', 'ru': 'Russian', 'sd': 'Sindhi', 'si': 'Sinhala', 'sk': 'Slovak', 'sl': 'Slovenian', 'sr': 'Serbian', 'sv': 'Swedish', 'ta': 'Tamil', 'te': 'Telugu', 'th': 'Thai', 'tl': 'Tagalog', 'tr': 'Turkish', 'ug': 'Uyghur', 'uk': 'Ukrainian', 'ur': 'Urdu', 'vi': 'Vietnamese', 'zh-CN': 'Simplified Chinese', 'zh-TW': 'Traditional Chinese', 'zh': 'Chinese', 'art': 'X', 'qam': 'X', 'qct': 'X', 'qht': 'X', 'qme': 'X', 'qst': 'X', 'und': 'X', 'zxx': 'X'}
 
+  const reasonsLookup = {1: "Factual error", 2: "Manipulated media", 3: "Missing important context", 4: "Other", 5: "Outdated information", 6: "Satire", 7: "Unverified claim as fact"}
+
+  const getReasons = function (values) {
+    if (!Array.isArray(values)) {
+      return values;
+    }
+    return values.map(v => reasonsLookup[v]).join(", ");
+  }
+
   const includesReason = function (reason) {
     return function (rowData, rowIdx) {
-      return rowData['reasons'].split(', ').includes(reason);
+      return rowData['reasons'].includes(reason);
     }
   }
 
@@ -102,35 +111,38 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
       },
       {
         data: 'reasons',
+        render: function (data, type, row, meta) {
+          return getReasons(data);
+        },
         searchPanes: {
           options: [
             {
               label: 'Factual error',
-              value: includesReason('Factual error'),
+              value: includesReason(1),
             },
             {
               label: 'Manipulated media',
-              value: includesReason('Manipulated media'),
+              value: includesReason(2),
             },
             {
               label: 'Missing important context',
-              value: includesReason('Missing important context'),
+              value: includesReason(3),
             },
             {
               label: 'Other',
-              value: includesReason('Other'),
+              value: includesReason(4),
             },
             {
               label: 'Outdated information',
-              value: includesReason('Outdated information'),
+              value: includesReason(5),
             },
             {
               label: 'Satire',
-              value: includesReason('Satire'),
+              value: includesReason(6),
             },
             {
               label: 'Unverified claim as fact',
-              value: includesReason('Unverified claim as fact'),
+              value: includesReason(7),
             }
           ]
         }
