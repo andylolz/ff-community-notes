@@ -31,19 +31,21 @@ When Twitter can’t determine the language of a tweet, it uses one of several r
 | `zxx`         | Tweet contains media or twitter card only   |
 {: .table .table-striped .w-inherit }
 
-{% if site.data.meta.total_tweets %}
-
 ### Tweet indexing status
 
-{% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_tweets %}
+After fetching new proposed community notes, the text of the tweets that the notes reference is not immediately searchable. In order to make it searchable, we need to fetch these tweets – a process that can take several hours. You can see the current status below.
+
+{% if site.data.meta.total_tweets %}
+  {% assign perc_fetched = site.data.meta.total_fetched | times: 100 | divided_by: site.data.meta.total_tweets %}
+{% else %}
+  {% assign perc_fetched = 0 %}
+{% endif %}
 
 <div class="progress my-2" style="max-width: 500px;" role="progressbar">
   <div class="progress-bar text-bg-{% if perc_fetched == 100 %}success{% else %}warning{% endif %}" style="width: {{ perc_fetched }}%">{{ perc_fetched }}% ({{ site.data.meta.total_fetched }} / {{ site.data.meta.total_tweets }})</div>
 </div>
 
 {{ perc_fetched }}% of tweets are searchable.
-
-{% endif %}
 
 <script>
   const dts = document.getElementsByClassName('dt');
