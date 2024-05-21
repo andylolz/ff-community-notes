@@ -209,6 +209,9 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           if (!data) {
             return 0;
           }
+          if (type === 'display') {
+            return data.toLocaleString();
+          }
           return data;
         }
       },
