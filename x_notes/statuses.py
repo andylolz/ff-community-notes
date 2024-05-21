@@ -8,7 +8,7 @@ unhelpful = "CURRENTLY_RATED_NOT_HELPFUL"
 
 
 def add_statuses(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    for row in get_generator("noteStatusHistory"):
+    for row in get_generator("noteStatusHistory/noteStatusHistory"):
         note_id = row["noteId"]
         if note_id not in notes:
             continue

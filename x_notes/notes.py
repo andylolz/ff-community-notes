@@ -52,7 +52,7 @@ def get_notes(notes: dict[str, dict[str, Any]]) -> dict[str, dict[str, Any]]:
         for k, v in notes.items()
         if datetime.fromisoformat(v["created_at"]).timestamp() >= one_week_ago
     }
-    for row in get_generator("notes"):
+    for row in get_generator("notes/notes"):
         note_id = row["noteId"]
         created_at = to_isoformat(row["createdAtMillis"])
         if float(row["createdAtMillis"]) / 1000 < one_week_ago:
