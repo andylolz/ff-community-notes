@@ -17,6 +17,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         <th>Tweet status</th>
         <th>Username</th>
         <th>Tweet content</th>
+        <th>Total ratings</th>
       </tr>
     </thead>
     <tbody>
@@ -199,6 +200,20 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
         searchable: true,
         visible: false,
         defaultContent: ''
+      },
+      {
+        data: 'rating',
+        searchable: true,
+        visible: true,
+        render: function (data, type, row, meta) {
+          if (!data) {
+            return 0;
+          }
+          if (type === 'display') {
+            return data.reduce((x, y) => x + y, 0);
+          }
+          return data;
+        }
       },
     ],
     drawCallback: function (settings) {
