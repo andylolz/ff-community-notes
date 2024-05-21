@@ -43,6 +43,5 @@ poetry run python -m x_notes
 poetry run python -m x_notes.fetch_tweets
 
 # Start the development server
-cd output
-jekyll serve
+jekyll s -s output
 ```
