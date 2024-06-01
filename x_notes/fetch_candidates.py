@@ -4,9 +4,15 @@ from io import StringIO
 
 import requests
 
-dc_csv = "https://candidates.democracyclub.org.uk/data/export_csv/?election_date=&ballot_paper_id=&election_id=parl.2024-07-04&party_id=&cancelled=&has_twitter_username=yes&extra_fields=twitter_username&format=csv"
+dc_csv = "https://candidates.democracyclub.org.uk/data/export_csv/"
+params = {
+    "election_id": "parl.2024-07-04",
+    "has_twitter_username": "yes",
+    "extra_fields": "twitter_username",
+    "format": "csv",
+}
 
-r = requests.get(dc_csv, stream=True)
+r = requests.get(dc_csv, params=params, stream=True)
 data = list(csv.DictReader(StringIO(r.text)))
 handles = [row["twitter_username"].replace('"', "") for row in data]
 
