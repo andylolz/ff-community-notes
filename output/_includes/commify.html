@@ -1,0 +1,19 @@
+{%- assign number_string = include.number | split: '' -%}
+{%- assign total_digits = number_string.size -%}
+{%- assign comma_separated_number = '' -%}
+
+{%- for i in (1..total_digits) -%}
+  {%- assign index = total_digits | minus: i -%}
+  {%- assign digit = number_string[index] -%}
+
+  {%- assign position = index -%}
+  {%- assign remainder = position | modulo: 3 -%}
+
+  {%- if remainder == 0 and i != 1 -%}
+    {%- assign comma_separated_number = digit | append: ',' | append: comma_separated_number -%}
+  {%- else -%}
+    {%- assign comma_separated_number = digit | append: comma_separated_number -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{{- comma_separated_number -}}
