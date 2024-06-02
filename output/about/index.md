@@ -2,7 +2,7 @@
 title: How it works
 ---
 
-Community note data is fetched regularly [from Twitter](https://x.com/i/communitynotes/download-data).
+Community note data is fetched regularly [from Twitter (X)](https://x.com/i/communitynotes/download-data).
 
 This data is always a couple of days old (**most recent data is from <time class="dt" datetime="{{ site.data.meta.most_recent }}" title="{{ site.data.meta.most_recent | date_to_rfc822 }}">{{ site.data.meta.most_recent }}</time>, scraped <time class="dt" datetime="{{ site.data.meta.scraped_at }}" title="{{ site.data.meta.scraped_at | date_to_rfc822 }}">{{ site.data.meta.scraped_at }}</time>**).
 
@@ -14,9 +14,9 @@ Notes are excluded if they meet any of the following criteria:
 
 We also attempt to filter out notes for deleted tweets and non-English tweets.
 
-### Special twitter language codes
+### Special twitter (X) language codes
 
-When Twitter can’t determine the language of a tweet, it uses one of several reserved language codes. For the purpose of language filtering, we’ve grouped these all together. But this is the breakdown:
+When Twitter (X) can’t determine the language of a tweet, it uses one of several reserved language codes. For the purpose of language filtering, we’ve grouped these all together. But this is the breakdown:
 
 |---------------|---------------------------------------------|
 | Language code | Description                                 |

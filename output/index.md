@@ -1,8 +1,8 @@
 ---
-title: Twitter community notes
+title: Twitter (X) community notes
 ---
 
-Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…]({{ '/about/' | relative_url }})_
+Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-data) from the last week, updated regularly. _[More…]({{ '/about/' | relative_url }})_
 
 <div class="table-responsive">
   <table id="notes-table" class="table table-striped" data-order='[[ 0, "desc" ]]'>
@@ -78,7 +78,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           if (type !== 'display') {
             return data;
           }
-          return '<a href="https://twitter.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
+          return '<a href="https://x.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
         },
         searchable: false
       },
@@ -108,7 +108,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
             return data;
           }
           content = row['tweet'] ? row['tweet'] : '';
-          return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
+          return '<blockquote class="twitter-tweet">' + content + '<a href="https://x.com/_/status/' + data + '"></a></blockquote>';
         }
       },
       {
@@ -169,10 +169,10 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
           const niceName = langLookup[data];
           if (niceName === 'X') {
             // there are a handful of language codes that are used for
-            // esoteric twitter things, including emoji-only tweets (`art`)
+            // esoteric twitter (X) things, including emoji-only tweets (`art`)
             // and hashtag-only tweets (`qht`). We lump these all together
             if (type === 'display') {
-              return 'Twitter special (see about page)';
+              return 'Twitter (X) special (see about page)';
             }
             return niceName;
           }
