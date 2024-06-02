@@ -163,6 +163,8 @@ cython_debug/
 _site/
 gh-pages/
 output/data/*.json
+output/_data/*.json
+!output/_data/mps.json
 
 # Mac OS
 .DS_Store
