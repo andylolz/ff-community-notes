@@ -27,7 +27,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 </div>
 
 <script>
-  const candidates = {{ site.data.ge2024-candidates | jsonify }};
+  const candidates = {% if site.data.ge2024-candidates %}{{ site.data.ge2024-candidates | jsonify }}{% else %}[]{% endif %};
   const mps = {{ site.data.mps | jsonify }};
 
   /*
