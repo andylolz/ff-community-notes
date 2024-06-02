@@ -28,7 +28,7 @@ Proposed [Twitter community notes](https://twitter.com/i/communitynotes/download
 
 <script>
   const candidates = {% if site.data.ge2024-candidates %}{{ site.data.ge2024-candidates | jsonify }}{% else %}[]{% endif %};
-  const mps = {{ site.data.mps | jsonify }};
+  const mps = {% if site.data.mps %}{{ site.data.mps | jsonify }}{% else %}[]{% endif %};
 
   /*
   This list comes from:
