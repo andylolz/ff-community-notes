@@ -14,6 +14,20 @@ Notes are excluded if they meet any of the following criteria:
 
 We also attempt to filter out notes for deleted tweets and non-English tweets.
 
+---
+
+### Filter by author group
+
+With thanks to [@leobenedictus](https://x.com/leobenedictus) for the suggestion, community notes can be filtered by ~~current UK MPs~~ **UK General Election 2024 candidates**.
+
+In order to do this, we need a list of the Twitter (X) handles of election candidates. This data is pulled daily from [Democracy Club candidates](https://candidates.democracyclub.org.uk/). It’s incomplete, but you can help improve it by finding and adding candidates / candidate Twitter (X) handles to their data.
+
+{% assign total_candidate_handles = site.data.ge2024-candidates | size %}
+
+At present, Democracy Club candidates has twitter (X) handles of **{% include commify.html number=total_candidate_handles %} General Election 2024 candidates**.
+
+---
+
 ### Special twitter (X) language codes
 
 When Twitter (X) can’t determine the language of a tweet, it uses one of several reserved language codes. For the purpose of language filtering, we’ve grouped these all together. But this is the breakdown:
@@ -30,6 +44,8 @@ When Twitter (X) can’t determine the language of a tweet, it uses one of sever
 | `und`         | Undefined (couldn’t determine the language) |
 | `zxx`         | Tweet contains media or twitter card only   |
 {: .table .table-striped .w-inherit }
+
+---
 
 ### Tweet indexing status
 
@@ -53,6 +69,8 @@ After fetching new proposed community notes, the text of the tweets that the not
     dt.textContent = luxon.DateTime.fromISO(dt.textContent).toRelative();
   }
 </script>
+
+---
 
 ### Why is the language unknown for some tweets?
 
