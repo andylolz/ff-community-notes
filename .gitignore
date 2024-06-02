@@ -163,7 +163,6 @@ cython_debug/
 _site/
 gh-pages/
 output/data/*.json
-output/_data/*.json
 
 # Mac OS
 .DS_Store
