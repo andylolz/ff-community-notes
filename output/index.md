@@ -228,12 +228,18 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
             {
               label: 'GE2024 candidates',
               value: function (rowData, rowIdx) {
+                if (!rowData['user']) {
+                  return false;
+                }
                 return candidates.includes(rowData['user'].toLowerCase());
               }
             },
             {
               label: 'Former UK MPs',
               value: function (rowData, rowIdx) {
+                if (!rowData['user']) {
+                  return false;
+                }
                 return mps.includes(rowData['user'].toLowerCase());
               }
             }
