@@ -14,7 +14,7 @@ params = {
 
 r = requests.get(dc_csv, params=params, stream=True)
 data = list(csv.DictReader(StringIO(r.text)))
-handles = [row["twitter_username"].replace('"', "") for row in data]
+handles = [row["twitter_username"].replace('"', "").lower() for row in data]
 
 with open("output/_data/ge2024-candidates.json", "w") as fh:
     json.dump(handles, fh)

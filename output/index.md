@@ -228,7 +228,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
             {
               label: 'GE2024 candidates',
               value: function (rowData, rowIdx) {
-                return candidates.includes(rowData['user']);
+                return candidates.includes(rowData['user'].lower());
               }
             },
             {
