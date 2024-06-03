@@ -169,7 +169,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
           const niceName = langLookup[data];
           if (niceName === 'X') {
             // there are a handful of language codes that are used for
-            // esoteric twitter (X) things, including emoji-only tweets (`art`)
+            // esoteric Twitter (X) things, including emoji-only tweets (`art`)
             // and hashtag-only tweets (`qht`). We lump these all together
             if (type === 'display') {
               return 'Twitter (X) special (see about page)';

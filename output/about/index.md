@@ -24,11 +24,11 @@ In order to do this, we need a list of the Twitter (X) handles of election candi
 
 {% assign total_candidate_handles = site.data.ge2024-candidates | size %}
 
-At present, Democracy Club candidates has twitter (X) handles of **{% include commify.html number=total_candidate_handles %} UK General Election candidates**.
+At present, Democracy Club candidates has Twitter (X) handles of **{% include commify.html number=total_candidate_handles %} UK General Election candidates**.
 
 ---
 
-### Special twitter (X) language codes
+### Special Twitter (X) language codes
 
 When Twitter (X) can’t determine the language of a tweet, it uses one of several reserved language codes. For the purpose of language filtering, we’ve grouped these all together. But this is the breakdown:
 
