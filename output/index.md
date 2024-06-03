@@ -234,7 +234,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
             {
               label: 'Former UK MPs',
               value: function (rowData, rowIdx) {
-                return mps.includes(rowData['user']);
+                return mps.includes(rowData['user'].lower());
               }
             }
           ]
