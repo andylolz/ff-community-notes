@@ -108,7 +108,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
             return data;
           }
           content = row['tweet'] ? row['tweet'] : '';
-          return '<blockquote class="twitter-tweet">' + content + '<a href="https://x.com/_/status/' + data + '"></a></blockquote>';
+          return '<blockquote class="twitter-tweet">' + content + '<a href="https://twitter.com/_/status/' + data + '"></a></blockquote>';
         }
       },
       {
