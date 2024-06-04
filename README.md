@@ -33,15 +33,28 @@ bundle install
 cp .env.example .env
 ```
 
+If you just need some notes data:
+
+```shell
+curl -o output/data/notes.json https://andylolz.github.io/x-community-notes/data/notes.json
+```
+
 Then to run:
 
 ```shell
+# Start the development server
+jekyll s -s output
+```
+
+If you want to download the notes yourself with python:
+```
 # Fetch notes
 poetry run python -m x_notes
+
+# Fetch a big list of GE2024 candidate twitter handles
+poetry run python -m x_notes.fetch_candidates
 
 # Optional: fetch tweets
 poetry run python -m x_notes.fetch_tweets
 
-# Start the development server
-jekyll s -s output
 ```
