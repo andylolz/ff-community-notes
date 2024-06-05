@@ -35,7 +35,7 @@ async def login(api: API) -> None:
         account = await api.pool.get(username)
         if environ.get("GH_UPDATE_SECRET"):
             logger.info("Updating secret ...")
-            update_secret("COOKIES", json.dumps(account.cookies))
+            update_secret("TW_COOKIES", json.dumps(account.cookies))
 
 
 async def fetch_tweets() -> None:

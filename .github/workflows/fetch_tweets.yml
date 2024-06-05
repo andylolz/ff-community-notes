@@ -43,11 +43,11 @@ jobs:
       - name: Fetch tweets
         run: poetry run python -m x_notes.fetch_tweets
         env:
-          TW_USER: ${{ secrets.USER }}
-          TW_PASS: ${{ secrets.PASS }}
-          TW_EMAIL: ${{ secrets.EMAIL }}
-          TW_PROXY: ${{ secrets.PROXY }}
-          TW_COOKIES: ${{ secrets.COOKIES }}
+          TW_USER: ${{ secrets.TW_USER }}
+          TW_PASS: ${{ secrets.TW_PASS }}
+          TW_EMAIL: ${{ secrets.TW_EMAIL }}
+          TW_PROXY: ${{ secrets.TW_PROXY }}
+          TW_COOKIES: ${{ secrets.TW_COOKIES }}
           GH_UPDATE_SECRET: 1
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           GH_REPO: ${{ github.repository }}
