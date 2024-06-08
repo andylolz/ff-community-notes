@@ -9,7 +9,6 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
     <thead>
       <tr>
         <th>Note created</th>
-        <th>Note shown</th>
         <th>Tweet</th>
         <th>Note</th>
         <th>Reason for note</th>
@@ -84,24 +83,6 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
             return data[0]['created_at'];
           }
           return '<a href="https://x.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data[0]['created_at']).toFormat('d MMM yyyy') + '</a>';
-        },
-        searchable: false
-      },
-      {
-        data: 'notes',
-        defaultContent: '',
-        render: function (data, type, row, meta) {
-          if (data[0]['shown'] === undefined) {
-            return '';
-          }
-          if (type !== 'display') {
-            return data[0]['shown'];
-          }
-          content = luxon.DateTime.fromISO(data[0]['shown']).toFormat('d MMM yyyy')
-          if (row['removed']) {
-            content += ' (since removed)';
-          }
-          return content;
         },
         searchable: false
       },
@@ -260,14 +241,14 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
     },
     searchPanes: {
       orderable: false,
-      columns: [5, 6, 7, 4],
+      columns: [4, 5, 6, 3],
       preSelect: [
         {
-          column: 5,
+          column: 4,
           rows: ['en', 'X', '']
         },
         {
-          column: 6,
+          column: 5,
           rows: [0]
         },
       ],
