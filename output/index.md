@@ -216,8 +216,9 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
       },
       {
         data: 'rating',
-        searchable: true,
+        searchable: false,
         visible: true,
+        defaultContent: 0,
         render: function (data, type, row, meta) {
           if (!data) {
             return 0;
