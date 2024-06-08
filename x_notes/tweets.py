@@ -84,6 +84,7 @@ async def fetch_tweets() -> None:
             note_update["lang"] = tweet.lang
             note_update["user"] = tweet.user.username
             note_update["tweet"] = tweet.rawContent
+            note_update["tweet_created_at"] = tweet.date.isoformat()
         else:
             note_update["deleted"] = 1
         for update_note_id in tweets_with_multi_notes.get(note["tweet_id"], [note_id]):
