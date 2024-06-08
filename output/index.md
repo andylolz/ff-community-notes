@@ -10,7 +10,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
       <tr>
         <th>Note created</th>
         <th>Tweet</th>
-        <th>Note</th>
+        <th>Note(s)</th>
         <th>Reason for note</th>
         <th>Tweet language</th>
         <th>Tweet status</th>
@@ -99,7 +99,11 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
       {
         data: 'notes',
         render: function (data, type, row, meta) {
-          return data[0]['summary'];
+          var output = data[0]['summary'];
+          for (let i = 1; i < data.length; i++) {
+            output = output + '<br><hr>' + data[i]['summary'];
+          }
+          return output;
         }
       },
       {
