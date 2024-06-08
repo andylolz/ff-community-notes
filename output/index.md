@@ -15,10 +15,9 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         <th>Reason for note</th>
         <th>Tweet language</th>
         <th>Tweet status</th>
-        <th>Username</th>
+        <th>Tweet author</th>
         <th>Tweet content</th>
         <th>Total ratings</th>
-        <th>Tweet author</th>
       </tr>
     </thead>
     <tbody>
@@ -53,7 +52,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
 
   const includesReason = function (reason) {
     return function (rowData, rowIdx) {
-      return rowData['reasons'].includes(reason);
+      return rowData['notes'][0]['reasons'].includes(reason);
     }
   }
 
@@ -73,26 +72,26 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
     },
     columns: [
       {
-        data: 'created_at',
+        data: 'notes',
         render: function (data, type, row, meta) {
           if (type !== 'display') {
-            return data;
+            return data[0]['created_at'];
           }
-          return '<a href="https://x.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data).toFormat('d MMM yyyy') + '</a>';
+          return '<a href="https://x.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data[0]['created_at']).toFormat('d MMM yyyy') + '</a>';
         },
         searchable: false
       },
       {
-        data: 'shown',
+        data: 'notes',
         defaultContent: '',
         render: function (data, type, row, meta) {
-          if (data === undefined) {
+          if (data[0]['shown'] === undefined) {
             return '';
           }
           if (type !== 'display') {
-            return data;
+            return data[0]['shown'];
           }
-          content = luxon.DateTime.fromISO(data).toFormat('d MMM yyyy')
+          content = luxon.DateTime.fromISO(data[0]['shown']).toFormat('d MMM yyyy')
           if (row['removed']) {
             content += ' (since removed)';
           }
@@ -112,12 +111,15 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         }
       },
       {
-        data: 'summary'
+        data: 'notes',
+        render: function (data, type, row, meta) {
+          return data[0]['summary'];
+        }
       },
       {
-        data: 'reasons',
+        data: 'notes',
         render: function (data, type, row, meta) {
-          return getReasons(data);
+          return getReasons(data[0]['reasons']);
         },
         searchPanes: {
           options: [
@@ -197,31 +199,6 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         data: 'user',
         searchable: true,
         visible: false,
-        defaultContent: ''
-      },
-      {
-        data: 'tweet',
-        searchable: true,
-        visible: false,
-        defaultContent: ''
-      },
-      {
-        data: 'rating',
-        searchable: true,
-        visible: true,
-        render: function (data, type, row, meta) {
-          if (!data) {
-            return 0;
-          }
-          if (type === 'display') {
-            return data.toLocaleString();
-          }
-          return data;
-        }
-      },
-      {
-        data: 'user',
-        visible: false,
         defaultContent: '',
         searchPanes: {
           options: [
@@ -246,13 +223,33 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
           ]
         }
       },
+      {
+        data: 'tweet',
+        searchable: true,
+        visible: false,
+        defaultContent: ''
+      },
+      {
+        data: 'rating',
+        searchable: true,
+        visible: true,
+        render: function (data, type, row, meta) {
+          if (!data) {
+            return 0;
+          }
+          if (type === 'display') {
+            return data.toLocaleString();
+          }
+          return data;
+        }
+      }
     ],
     drawCallback: function (settings) {
       twttr.widgets.load();
     },
     searchPanes: {
       orderable: false,
-      columns: [5, 6, 10, 4],
+      columns: [5, 6, 7, 4],
       preSelect: [
         {
           column: 5,
