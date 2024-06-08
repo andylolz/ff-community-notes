@@ -16,7 +16,6 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         <th>Tweet status</th>
         <th>Tweet author</th>
         <th>Tweet content</th>
-        <th>Total notes</th>
         <th>Total ratings</th>
       </tr>
     </thead>
@@ -214,12 +213,6 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         searchable: true,
         visible: false,
         defaultContent: ''
-      },
-      {
-        data: 'notes',
-        render: function (data, type, row, meta) {
-          return data.length;
-        }
       },
       {
         data: 'rating',
