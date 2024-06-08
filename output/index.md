@@ -53,7 +53,12 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
 
   const includesReason = function (reason) {
     return function (rowData, rowIdx) {
-      return rowData['notes'][0]['reasons'].includes(reason);
+      for (let i = 0; i < rowData['notes'].length; i++) {
+        if (rowData['notes'][i]['reasons'].includes(reason)) {
+          return true;
+        }
+      }
+      return false;
     }
   }
 
@@ -119,9 +124,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
       },
       {
         data: 'notes',
-        render: function (data, type, row, meta) {
-          return getReasons(data[0]['reasons']);
-        },
+        visible: false,
         searchPanes: {
           options: [
             {
