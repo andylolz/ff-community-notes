@@ -201,6 +201,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         visible: false,
         defaultContent: '',
         searchPanes: {
+          threshold: 1,
           options: [
             {
               label: 'GE2024 candidates',
