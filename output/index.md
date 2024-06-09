@@ -226,8 +226,8 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         render: function (data, type, row, meta) {
           let totalRating = 0;
           for (let i = 0; i < data.length; i++) {
-            if (data.includes('rating')) {
-              totalRating = totalRating + data['rating'];
+            if (data[i]['ratings']) {
+              totalRating = totalRating + data[i]['ratings'];
             }
           }
           if (type === 'display') {
