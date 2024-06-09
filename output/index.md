@@ -16,7 +16,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         <th>Tweet status</th>
         <th>Tweet author</th>
         <th>Tweet content</th>
-        <th>Total ratings</th>
+        <th>Ratings total</th>
       </tr>
     </thead>
     <tbody>
