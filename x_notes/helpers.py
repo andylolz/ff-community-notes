@@ -21,7 +21,16 @@ def load_notes(filepath: str = "output/data/notes.json") -> dict[str, dict[str, 
     for noted_tweet in noted_tweets:
         tweet = {
             k: noted_tweet[k]
-            for k in ["deleted", "dl", "lang", "rating", "tweet", "tweet_id", "user"]
+            for k in [
+                "deleted",
+                "dl",
+                "lang",
+                "rating",
+                "tweet",
+                "tweet_id",
+                "user",
+                "tweet_created_at",
+            ]
             if k in noted_tweet
         }
         for note in noted_tweet["notes"]:
@@ -45,6 +54,7 @@ def save_notes(
                     "tweet",
                     "tweet_id",
                     "user",
+                    "tweet_created_at",
                 ]
                 if k in note
             }
