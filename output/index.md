@@ -219,18 +219,21 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         defaultContent: ''
       },
       {
-        data: 'rating',
+        data: 'notes',
         searchable: false,
         visible: true,
         defaultContent: 0,
         render: function (data, type, row, meta) {
-          if (!data) {
-            return 0;
+          let totalRating = 0;
+          for (let i = 0; i < data.length; i++) {
+            if (data.includes('rating')) {
+              totalRating = totalRating + data['rating'];
+            }
           }
           if (type === 'display') {
-            return data.toLocaleString();
+            return totalRating.toLocaleString();
           }
-          return data;
+          return totalRating;
         }
       }
     ],
