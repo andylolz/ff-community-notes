@@ -7,7 +7,6 @@ from .tsv import get_generator
 
 
 def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
-    tweet_ratings = {}
     index = 0
     while True:
         try:
@@ -16,16 +15,12 @@ def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
             break
         for row in gen:
             if row["noteId"] in notes:
-                note_id = row["noteId"]
-                tweet_id = notes[note_id]["tweet_id"]
+                note = notes[row["noteId"]]
                 # rating = helpfulness_lookup[row["helpfulnessLevel"]]
-                if tweet_id not in tweet_ratings:
-                    tweet_ratings[tweet_id] = 1
-                tweet_ratings[tweet_id] += 1
+                if "rating" not in note:
+                    note["rating"] = 0
+                note["rating"] += 1
         index += 1
-    for note in notes.values():
-        if note["tweet_id"] in tweet_ratings:
-            note["rating"] = tweet_ratings[note["tweet_id"]]
     save_notes(notes)
 
 
