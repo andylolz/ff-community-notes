@@ -10,14 +10,13 @@ def to_isoformat(ms_since_epoch: str) -> str:
     return datetime.fromtimestamp(int(ms_since_epoch[:-3]), timezone.utc).isoformat()
 
 
-def load_notes() -> dict[str, dict[str, Any]]:
-    fn = "output/data/notes.json"
+def load_notes(filepath: str = "output/data/notes.json") -> dict[str, dict[str, Any]]:
     notes = {}
     try:
-        with open(fn) as fh:
+        with open(filepath) as fh:
             noted_tweets = json.load(fh)
     except FileNotFoundError:
-        logger.warning(f"File not found: {fn}")
+        logger.warning(f"File not found: {filepath}")
         return notes
     for noted_tweet in noted_tweets:
         tweet = {
@@ -30,7 +29,9 @@ def load_notes() -> dict[str, dict[str, Any]]:
     return notes
 
 
-def save_notes(notes: dict[str, dict[str, Any]]) -> None:
+def save_notes(
+    notes: dict[str, dict[str, Any]], filepath: str = "output/data/notes.json"
+) -> None:
     noted_tweets = {}
     for note in notes:
         if note["tweet_id"] not in noted_tweets:
@@ -66,7 +67,7 @@ def save_notes(notes: dict[str, dict[str, Any]]) -> None:
             key=lambda x: x["created_at"],
             reverse=True,
         )
-    with open("output/data/notes.json", "w") as fh:
+    with open(filepath, "w") as fh:
         json.dump(list(noted_tweets.values()), fh)
 
 
