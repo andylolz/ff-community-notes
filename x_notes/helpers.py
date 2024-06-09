@@ -41,7 +41,7 @@ def save_notes(
     notes: dict[str, dict[str, Any]], filepath: str = "output/data/notes.json"
 ) -> None:
     noted_tweets = {}
-    for note in notes:
+    for note in notes.values():
         if note["tweet_id"] not in noted_tweets:
             noted_tweets[note["tweet_id"]] = {
                 k: note[k]
