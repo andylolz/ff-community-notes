@@ -99,7 +99,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
       {
         data: 'notes',
         render: function (data, type, row, meta) {
-          var output = data[0]['summary'];
+          let output = data[0]['summary'];
           for (let i = 1; i < data.length; i++) {
             output = output + '<br><hr>' + data[i]['summary'];
           }
