@@ -17,9 +17,9 @@ def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
             if row["noteId"] in notes:
                 note = notes[row["noteId"]]
                 # rating = helpfulness_lookup[row["helpfulnessLevel"]]
-                if "rating" not in note:
-                    note["rating"] = 0
-                note["rating"] += 1
+                if "ratings" not in note:
+                    note["ratings"] = 0
+                note["ratings"] += 1
         index += 1
     save_notes(notes)
 
