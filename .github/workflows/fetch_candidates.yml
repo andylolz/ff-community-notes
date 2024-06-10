@@ -1,4 +1,4 @@
-name: Fetch candidates
+name: Fetch GE2024 candidates
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   fetch:
-    name: Fetch candidates
+    name: Fetch GE2024 candidates
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,7 +40,7 @@ jobs:
       - name: Copy files into place
         run: cp -r previous/* output
 
-      - name: Fetch candidates
+      - name: Fetch GE2024 candidates
         run: poetry run python -m x_notes.fetch_candidates
 
       - name: Deploy 🚀
