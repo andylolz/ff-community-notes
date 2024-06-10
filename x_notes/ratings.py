@@ -7,6 +7,10 @@ from .tsv import get_generator
 
 
 def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
+    for note in notes.values():
+        if "rating" in note:
+            del note["ratings"]
+
     index = 0
     while True:
         try:
