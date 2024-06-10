@@ -3,7 +3,11 @@ from typing import Any
 from .helpers import load_notes, save_notes
 from .tsv import get_generator
 
-helpfulness_lookup = {"HELPFUL": 2, "SOMEWHAT_HELPFUL": 1, "NOT_HELPFUL": -2}
+helpfulness_score = {
+    "HELPFUL": 2,
+    "SOMEWHAT_HELPFUL": 1,
+    "NOT_HELPFUL": -2,
+}
 
 
 def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
@@ -26,7 +30,7 @@ def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
                     note["ratings"] = 0
                     note["score"] = 0
                 note["ratings"] += 1
-                note["score"] += helpfulness_lookup[row["helpfulnessLevel"]]
+                note["score"] += helpfulness_score[row["helpfulnessLevel"]]
         index += 1
     save_notes(notes)
 
