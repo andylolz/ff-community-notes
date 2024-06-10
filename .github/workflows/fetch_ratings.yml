@@ -3,7 +3,7 @@ name: Fetch ratings
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 */12 * * *"
+    - cron: "15 */4 * * *"
 
 permissions:
   contents: write
