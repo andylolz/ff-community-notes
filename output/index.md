@@ -60,6 +60,13 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
     }
   }
 
+  const showScore = function (score) {
+    if (score === undefined) {
+      score = 0;
+    }
+    return ' <small>[' + score + ']</small>';
+  }
+
   let table = new DataTable('#notes-table', {
     layout: {
       top2Start: 'search',
@@ -99,9 +106,9 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
       {
         data: 'notes',
         render: function (data, type, row, meta) {
-          let output = data[0]['summary'];
+          let output = data[0]['summary'] + showScore(data[0]['score']);
           for (let i = 1; i < data.length; i++) {
-            output = output + '<br><hr>' + data[i]['summary'];
+            output = output + '<br><hr>' + data[i]['summary'] + showScore(data[i]['score']);
           }
           return output;
         }
