@@ -8,7 +8,7 @@ helpfulness_lookup = {"HELPFUL": 2, "SOMEWHAT_HELPFUL": 1, "NOT_HELPFUL": -2}
 
 def add_ratings(notes: dict[str, dict[str, Any]]) -> None:
     for note in notes.values():
-        if "rating" in note:
+        if "ratings" in note:
             del note["ratings"]
         if "score" in note:
             del note["score"]
