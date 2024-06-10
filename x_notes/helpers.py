@@ -68,6 +68,7 @@ def save_notes(
                     "shown",
                     "summary",
                     "ratings",
+                    "score",
                 ]
                 if k in note
             }
