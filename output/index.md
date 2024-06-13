@@ -16,7 +16,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         <th>Tweet status</th>
         <th>Tweet author</th>
         <th>Tweet content</th>
-        <th>Ratings total</th>
+        <th>Max score</th>
       </tr>
     </thead>
     <tbody>
@@ -237,16 +237,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
         visible: true,
         defaultContent: 0,
         render: function (data, type, row, meta) {
-          let totalRating = 0;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i]['ratings']) {
-              totalRating = totalRating + data[i]['ratings'];
-            }
-          }
-          if (type === 'display') {
-            return totalRating.toLocaleString();
-          }
-          return totalRating;
+          return data[0]['score'];
         }
       }
     ],
