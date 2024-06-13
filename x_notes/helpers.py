@@ -74,7 +74,7 @@ def save_notes(
             }
         )
         noted_tweets[note["tweet_id"]]["notes"].sort(
-            key=lambda x: x["score"],
+            key=lambda x: x.get("score", 0),
             reverse=True,
         )
     with open(filepath, "w") as fh:
