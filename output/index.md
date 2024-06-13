@@ -8,7 +8,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
   <table id="notes-table" class="table table-striped" data-order='[[ 0, "desc" ]]'>
     <thead>
       <tr>
-        <th>Note created</th>
+        <th>Created</th>
         <th>Tweet</th>
         <th>Note(s)</th>
         <th>Reason for note</th>
@@ -83,12 +83,18 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
     },
     columns: [
       {
-        data: 'notes',
+        data: 'tweet_created_at',
+        defaultContent: '',
         render: function (data, type, row, meta) {
           if (type !== 'display') {
-            return data[0]['created_at'];
+            return data;
           }
-          return '<a href="https://x.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + luxon.DateTime.fromISO(data[0]['created_at']).toFormat('d MMM yyyy') + '</a>';
+          if (data) {
+            dt = luxon.DateTime.fromISO(data).toFormat('d MMM yyyy');
+          } else {
+            dt = 'Unknown';
+          }
+          return '<a href="https://x.com/i/birdwatch/t/' + row['tweet_id'] + '" target="_blank">' + dt + '</a>';
         },
         searchable: false
       },
