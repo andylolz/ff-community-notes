@@ -26,7 +26,7 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
 
 <script>
   const candidates = {% if site.data.ge2024-candidates %}{{ site.data.ge2024-candidates | jsonify }}{% else %}[]{% endif %};
-  const mps = {% if site.data.mps %}{{ site.data.mps | jsonify }}{% else %}[]{% endif %};
+  // const mps = {% if site.data.mps %}{{ site.data.mps | jsonify }}{% else %}[]{% endif %};
 
   /*
   This list comes from:
@@ -206,15 +206,15 @@ Proposed [Twitter (X) community notes](https://x.com/i/communitynotes/download-d
                 }
                 return candidates.includes(rowData['user'].toLowerCase());
               }
-            },
-            {
-              label: 'Former UK MPs',
-              value: function (rowData, rowIdx) {
-                if (!rowData['user']) {
-                  return false;
-                }
-                return mps.includes(rowData['user'].toLowerCase());
-              }
+            // },
+            // {
+            //   label: 'Former UK MPs',
+            //   value: function (rowData, rowIdx) {
+            //     if (!rowData['user']) {
+            //       return false;
+            //     }
+            //     return mps.includes(rowData['user'].toLowerCase());
+            //   }
             }
           ]
         }
