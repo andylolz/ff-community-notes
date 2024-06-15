@@ -1,26 +1,21 @@
 {%- comment -%}
-This is a ludicrously complicated way of thousands separators to large numbers.
+This is a ludicrously complicated way of adding thousands separators to large
+numbers.
 
 I couldn’t figure out a better way of doing it without requiring either Ruby or
 Javascript.
 {%- endcomment -%}
 
-{%- assign number_string = include.number | split: '' -%}
-{%- assign total_digits = number_string.size -%}
-{%- assign commify_number = '' -%}
+{%- assign number_arr = include.number | split: '' -%}
+{%- assign commified_number = '' -%}
 
-{%- for i in (1..total_digits) -%}
-  {%- assign index = total_digits | minus: i -%}
-  {%- assign digit = number_string[index] -%}
-
-  {%- assign position = index -%}
-  {%- assign remainder = position | modulo: 3 -%}
-
-  {%- if remainder == 0 and i != 1 -%}
-    {%- assign commify_number = digit | append: ',' | append: commify_number -%}
+{%- for digit in number_arr reversed -%}
+  {%- assign remainder = forloop.index0 | modulo: 3 -%}
+  {%- if remainder == 0 and forloop.index0 != 0 -%}
+    {%- assign commified_number = digit | append: ',' | append: commified_number -%}
   {%- else -%}
-    {%- assign commify_number = digit | append: commify_number -%}
+    {%- assign commified_number = digit | append: commified_number -%}
   {%- endif -%}
 {%- endfor -%}
 
-{{- commify_number -}}
+{{- commified_number -}}
